@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Rivera · design & code</title>
-    <!-- Bootstrap 5 dark preferred (but we override to custom dark) + icons -->
+    <title>Riley Harper · product & code</title>
+    <!-- Bootstrap 5 + icons (clean, professional) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <!-- elegant font: Inter (clean and modern) -->
+    <!-- professional font: Inter (friendly & technical) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -16,407 +16,411 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #111418;
-            color: #e6edf3;
-            line-height: 1.6;
-            overflow-y: auto;      /* ensure scrolling works */
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            background: #f6f9fc;   /* light, clean background (hr friendly) */
+            color: #1d2c3a;
+            line-height: 1.5;
             overflow-x: hidden;
-            min-height: 100vh;
+            overflow-y: auto;
+        }
+        /* smooth scroll */
+        html {
             scroll-behavior: smooth;
         }
-        /* simple, elegant scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1e262e;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3d4f5e;
-            border-radius: 20px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #5a7387;
-        }
-
         /* typography */
         h1, h2, h3, h4 {
             font-weight: 600;
             letter-spacing: -0.02em;
+            color: #0f263b;
         }
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 650;
-            color: #f0f6fc;
-            margin-bottom: 2rem;
+        .section-header {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
             position: relative;
             display: inline-block;
         }
-        .section-title::after {
+        .section-header:after {
             content: '';
             position: absolute;
             left: 0;
             bottom: -10px;
-            width: 60px;
-            height: 3px;
-            background: #4a80c0;
-            border-radius: 3px;
+            width: 70px;
+            height: 4px;
+            background: #327ab5;
+            border-radius: 6px;
         }
 
-        /* clean cards */
-        .soft-card {
-            background: #1c242c;
-            border-radius: 24px;
-            padding: 2rem 1.8rem;
+        /* card style - clean & professional */
+        .card-prof {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.8rem 1.5rem;
+            box-shadow: 0 12px 30px rgba(0,20,40,0.06);
+            border: 1px solid #e8ecf2;
             transition: 0.2s ease;
-            border: 1px solid #2c3a48;
-            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.6);
+            height: 100%;
         }
-        .soft-card:hover {
-            border-color: #4a80c0;
-            background: #202a34;
-            transform: translateY(-4px);
+        .card-prof:hover {
+            box-shadow: 0 24px 40px -12px rgba(18, 52, 77, 0.15);
+            border-color: #bdd3eb;
         }
 
-        /* badge minimal */
-        .badge-subtle {
-            background: #28323e;
-            color: #cbd5e6;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid #3e5265;
-        }
-
-        /* skill pill */
-        .skill-pill {
-            background: #1f2a35;
-            border: 1px solid #3d5568;
+        /* skills chip - for tech folks */
+        .skill-badge {
+            background: #e5f0fc;
+            color: #175a87;
             padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            color: #d4e2f2;
-            transition: 0.2s;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 550;
+            border: 1px solid #b9d1ef;
             display: inline-block;
+            transition: 0.1s;
         }
-        .skill-pill:hover {
-            background: #2d4055;
-            border-color: #5f8bc9;
-            color: white;
+        .skill-badge:hover {
+            background: #cbe2fe;
+            border-color: #2b6c9f;
         }
 
-        /* progress minimal */
-        .progress-light {
-            background: #26303b;
-            height: 6px;
-            border-radius: 40px;
+        /* progress bars - clean data for recruiters */
+        .progress-comp {
+            background: #e2e9f2;
+            height: 8px;
+            border-radius: 12px;
             overflow: hidden;
         }
-        .progress-fill {
-            background: linear-gradient(90deg, #4f8ad4, #7cb0ff);
-            height: 6px;
-            border-radius: 40px;
+        .progress-comp-bar {
+            background: #2b6c9f;
+            height: 8px;
+            border-radius: 12px;
             width: 0%;
         }
 
-        /* navbar minimal */
-        .navbar-elegant {
-            background: #111418;
-            border-bottom: 1px solid #26303b;
-            padding: 1rem 0;
-        }
-        .navbar-elegant .nav-link {
-            color: #b1c3d8;
-            font-weight: 500;
-            margin: 0 0.8rem;
-            padding: 0.3rem 0;
-            border-bottom: 2px solid transparent;
-            transition: 0.2s;
-        }
-        .navbar-elegant .nav-link:hover {
-            color: white;
-            border-bottom-color: #4f8ad4;
+        /* stats for HR: measurable impact */
+        .stat-number {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #175a87;
+            line-height: 1.2;
         }
 
-        /* avatar soft circle */
-        .avatar-grace {
+        /* avatar professional */
+        .avatar-prof {
             border-radius: 50%;
-            border: 3px solid #314e72;
-            padding: 5px;
-            background: #1c242c;
-            box-shadow: 0 20px 30px -10px black;
+            border: 4px solid white;
+            box-shadow: 0 18px 30px -10px rgba(0,45,80,0.2);
         }
 
-        /* footer minimal */
-        .footer-minimal {
-            background: #0f161d;
-            border-top: 1px solid #26303b;
-            color: #8f9fb1;
+        /* navbar minimal, elegant */
+        .navbar-prof {
+            background: white;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.02);
+            border-bottom: 1px solid #dfe8f0;
+            padding: 0.8rem 0;
+        }
+        .navbar-prof .nav-link {
+            color: #2c455d;
+            font-weight: 500;
+            margin: 0 0.7rem;
+            padding: 0.4rem 0;
+            border-bottom: 2px solid transparent;
+        }
+        .navbar-prof .nav-link:hover {
+            color: #175a87;
+            border-bottom-color: #2b6c9f;
         }
 
-        /* fix for scrolling: ensure body and container allow overflow */
-        html, body {
-            height: 100%;
-            width: 100%;
+        /* hr friendly block */
+        .achievement-tag {
+            background: #eaf4ff;
+            border-radius: 30px;
+            padding: 0.3rem 1.2rem;
+            font-size: 0.9rem;
+            color: #175a87;
+            font-weight: 500;
         }
-        .container {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+
+        /* footer simple */
+        .footer-light {
+            background: white;
+            border-top: 1px solid #dae2ec;
+            color: #38556b;
         }
-        /* simple link */
+
+        /* fix overflow / scroll always */
+        body {
+            min-height: 100vh;
+        }
         a {
-            color: #8fb4e8;
+            color: #1f6194;
             text-decoration: none;
         }
         a:hover {
-            color: #b8d1ff;
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-<!-- minimal navbar -->
-<nav class="navbar navbar-expand-md navbar-elegant">
+<!-- professional navbar: both hr and tech recognize clean -->
+<nav class="navbar navbar-expand-md navbar-prof">
     <div class="container">
-        <a class="navbar-brand fw-bold fs-3 text-light" href="#">A.R.</a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-            <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        <a class="navbar-brand fw-bold fs-3" style="color: #175a87;" href="#">Riley Harper</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarProf">
+            <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navMenu">
+        <div class="collapse navbar-collapse" id="navbarProf">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="#work">Work</a></li>
-                <li class="nav-item"><a class="nav-link" href="#certs">Certs</a></li>
                 <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                <li class="nav-item"><a class="nav-link" href="#certs">Certifications</a></li>
+                <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- HERO section - clean intro -->
-<section class="container mt-5 pt-2">
+<!-- HERO section – appeals to both: clear role, measurable stats, approachable -->
+<section class="container my-5 pt-2">
     <div class="row align-items-center g-5">
         <div class="col-lg-8">
-            <span class="badge-subtle"><i class="bi bi-moon-stars me-1"></i> product designer & frontend dev</span>
-            <h1 class="display-3 fw-bold mt-3 mb-3" style="color:#ffffff;">crafting simple,<br>human interfaces</h1>
-            <p class="lead text-secondary-emphasis" style="color:#b6c7e0 !important;">Hi, I'm Alex. I blend minimal design with solid code. Over 6 years of creating digital products that are both elegant and functional.</p>
-            <div class="d-flex gap-3 mt-4">
-                <a href="#work" class="btn btn-primary rounded-5 px-5 py-2 fw-semibold" style="background:#2b4e7a; border:none; box-shadow: 0 8px 16px #0f1f2f;">see work</a>
-                <a href="#" class="btn btn-outline-secondary rounded-5 px-5 py-2 fw-semibold" style="border-color:#415a77; color:#d3e2f5;">resume</a>
+            <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="achievement-tag"><i class="bi bi-briefcase-fill me-1"></i>senior product designer</span>
+                <span class="achievement-tag"><i class="bi bi-code-slash me-1"></i>frontend architect</span>
             </div>
-            <!-- subtle stats -->
+            <h1 class="display-4 fw-bold lh-1 mb-3" style="color:#0b314a;">build products that<br>users & stakeholders love.</h1>
+            <p class="lead fs-4 text-secondary" style="color: #2b506e !important;">8+ years of bridging design and engineering. Led 12 product launches, managed 5-person teams, and wrote code used by 2M+ users.</p>
+            <div class="d-flex gap-3 mt-4">
+                <a href="#work" class="btn btn-primary rounded-5 px-5 py-2 fw-semibold" style="background:#1c5c8c; border: none;">View portfolio</a>
+                <a href="#" class="btn btn-outline-secondary rounded-5 px-5 py-2 fw-semibold" style="border-color:#6b8fb0; color:#1d496b;">Download resume (PDF)</a>
+            </div>
+            <!-- recruiter-friendly metrics -->
             <div class="d-flex gap-4 mt-5">
-                <div><span class="fs-2 fw-semibold text-info">9+</span> <span class="text-secondary-emphasis">projects</span></div>
-                <div><span class="fs-2 fw-semibold text-info">4.9</span> <span class="text-secondary-emphasis">rating</span></div>
-                <div><span class="fs-2 fw-semibold text-info">12</span> <span class="text-secondary-emphasis">certifications</span></div>
+                <div><span class="stat-number">14</span> <span class="text-secondary-emphasis">shipped products</span></div>
+                <div><span class="stat-number">9</span> <span class="text-secondary-emphasis">team lead</span></div>
+                <div><span class="stat-number">7</span> <span class="text-secondary-emphasis">patents / pubs</span></div>
             </div>
         </div>
         <div class="col-lg-4 text-center">
-            <div class="avatar-grace d-inline-block">
-                <img src="https://i.pravatar.cc/350?u=104" alt="avatar" class="img-fluid rounded-circle" style="max-width: 260px;">
-            </div>
+            <img src="https://i.pravatar.cc/340?u=201" alt="Riley Harper" class="avatar-prof img-fluid" style="max-width: 280px;">
+            <p class="mt-2 text-muted small"><i class="bi bi-geo-alt-fill me-1"></i>Seattle / remote · open to roles</p>
         </div>
     </div>
 </section>
 
-<!-- SKILLS section - minimal progress, elegant chips -->
+<!-- SKILLS section – tech people see depth, hr sees proficiency -->
 <section id="skills" class="container my-5 py-3">
-    <h2 class="section-title">capabilities</h2>
+    <h2 class="section-header">core competencies</h2>
     <div class="row g-4">
         <div class="col-md-6">
-            <div class="soft-card">
-                <div class="d-flex align-items-center gap-2 mb-3"><i class="bi bi-brush fs-3" style="color:#6d9eeb;"></i><h4 class="mb-0">design</h4></div>
+            <div class="card-prof">
+                <div class="d-flex gap-3 align-items-center mb-3">
+                    <i class="bi bi-pencil-fill fs-1" style="color: #1f6194;"></i>
+                    <h3 class="h4 mb-0">product design</h3>
+                </div>
                 <div class="d-flex flex-wrap gap-2 mb-4">
-                    <span class="skill-pill">Figma</span><span class="skill-pill">UI/UX</span><span class="skill-pill">prototyping</span><span class="skill-pill">design systems</span>
+                    <span class="skill-badge">UX research</span><span class="skill-badge">wireframing</span>
+                    <span class="skill-badge">Figma</span><span class="skill-badge">prototyping</span>
+                    <span class="skill-badge">user testing</span><span class="skill-badge">design systems</span>
                 </div>
                 <div class="mt-3">
-                    <div class="d-flex justify-content-between"><span>visual design</span> <span class="text-info">95%</span></div>
-                    <div class="progress-light mt-1"><div class="progress-fill" style="width:95%"></div></div>
+                    <div class="d-flex justify-content-between"><span>interaction design</span> <span class="fw-semibold">95%</span></div>
+                    <div class="progress-comp mt-1"><div class="progress-comp-bar" style="width:95%"></div></div>
                 </div>
                 <div class="mt-3">
-                    <div class="d-flex justify-content-between"><span>user research</span> <span class="text-info">80%</span></div>
-                    <div class="progress-light mt-1"><div class="progress-fill" style="width:80%"></div></div>
+                    <div class="d-flex justify-content-between"><span>stakeholder mgmt</span> <span class="fw-semibold">90%</span></div>
+                    <div class="progress-comp mt-1"><div class="progress-comp-bar" style="width:90%"></div></div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="soft-card">
-                <div class="d-flex align-items-center gap-2 mb-3"><i class="bi bi-code-slash fs-3" style="color:#6d9eeb;"></i><h4 class="mb-0">frontend</h4></div>
+            <div class="card-prof">
+                <div class="d-flex gap-3 align-items-center mb-3">
+                    <i class="bi bi-code-square fs-1" style="color: #1f6194;"></i>
+                    <h3 class="h4 mb-0">frontend engineering</h3>
+                </div>
                 <div class="d-flex flex-wrap gap-2 mb-4">
-                    <span class="skill-pill">React</span><span class="skill-pill">TypeScript</span><span class="skill-pill">Tailwind</span><span class="skill-pill">Next.js</span>
+                    <span class="skill-badge">React</span><span class="skill-badge">TypeScript</span>
+                    <span class="skill-badge">Next.js</span><span class="skill-badge">Tailwind</span>
+                    <span class="skill-badge">Jest</span><span class="skill-badge">GraphQL</span>
                 </div>
                 <div class="mt-3">
-                    <div class="d-flex justify-content-between"><span>javascript/ts</span> <span class="text-info">90%</span></div>
-                    <div class="progress-light mt-1"><div class="progress-fill" style="width:90%"></div></div>
+                    <div class="d-flex justify-content-between"><span>javascript/ts</span> <span class="fw-semibold">92%</span></div>
+                    <div class="progress-comp mt-1"><div class="progress-comp-bar" style="width:92%"></div></div>
                 </div>
                 <div class="mt-3">
-                    <div class="d-flex justify-content-between"><span>responsive & a11y</span> <span class="text-info">88%</span></div>
-                    <div class="progress-light mt-1"><div class="progress-fill" style="width:88%"></div></div>
+                    <div class="d-flex justify-content-between"><span>responsive & a11y</span> <span class="fw-semibold">88%</span></div>
+                    <div class="progress-comp mt-1"><div class="progress-comp-bar" style="width:88%"></div></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- WORK section - elegant cards -->
+<!-- WORK section – select projects (business + technical value) -->
 <section id="work" class="container py-4">
-    <h2 class="section-title">selected projects</h2>
+    <h2 class="section-header">featured projects</h2>
     <div class="row g-4 mt-2">
         <div class="col-md-6 col-lg-4">
-            <div class="soft-card h-100">
-                <span class="badge-subtle mb-3">web app</span>
-                <h3 class="fw-semibold">orbit finance</h3>
-                <p class="text-secondary-emphasis" style="color:#b6c8dd;">clean dashboard for personal finance with AI insights. used by 5k+ users.</p>
-                <div class="mt-3 d-flex gap-2">
-                    <span class="skill-pill small">react</span><span class="skill-pill small">d3</span><span class="skill-pill small">firebase</span>
+            <div class="card-prof">
+                <span class="skill-badge mb-2">FinTech · B2B</span>
+                <h3 class="h4 fw-bold">nexus dashboard</h3>
+                <p class="text-secondary">Analytics platform for investment teams. Improved data viz speed by 40% and reduced user errors by 27%.</p>
+                <div class="d-flex gap-2 flex-wrap mb-3">
+                    <span class="skill-badge small">react</span><span class="skill-badge small">d3</span><span class="skill-badge small">python</span>
                 </div>
-                <a href="#" class="stretched-link text-info mt-3 d-block">learn more →</a>
+                <a href="#" class="text-primary-emphasis">case study →</a>
             </div>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="soft-card h-100">
-                <span class="badge-subtle mb-3">design system</span>
-                <h3 class="fw-semibold">sierra UI</h3>
-                <p class="text-secondary-emphasis">component library adopted by 15+ products at my previous company.</p>
-                <div class="mt-3 d-flex gap-2">
-                    <span class="skill-pill small">figma</span><span class="skill-pill small">storybook</span><span class="skill-pill small">css</span>
+            <div class="card-prof">
+                <span class="skill-badge mb-2">Healthcare · HIPAA</span>
+                <h3 class="h4 fw-bold">vitalis patient portal</h3>
+                <p class="text-secondary">Redesigned patient intake flow, resulting in 33% faster form completion. Used by 14 clinics.</p>
+                <div class="d-flex gap-2 flex-wrap mb-3">
+                    <span class="skill-badge small">figma</span><span class="skill-badge small">react native</span><span class="skill-badge small">FHIR</span>
                 </div>
-                <a href="#" class="stretched-link text-info mt-3 d-block">explore →</a>
+                <a href="#" class="text-primary-emphasis">read more →</a>
             </div>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="soft-card h-100">
-                <span class="badge-subtle mb-3">mobile</span>
-                <h3 class="fw-semibold">habits garden</h3>
-                <p class="text-secondary-emphasis">gentle habit tracker with 4.8 stars on both stores.</p>
-                <div class="mt-3 d-flex gap-2">
-                    <span class="skill-pill small">react native</span><span class="skill-pill small">realm</span>
+            <div class="card-prof">
+                <span class="skill-badge mb-2">internal tool</span>
+                <h3 class="h4 fw-bold">component library "orbit"</h3>
+                <p class="text-secondary">Design system adopted by 6 teams, cutting design/ dev handoff time by 50%.</p>
+                <div class="d-flex gap-2 flex-wrap mb-3">
+                    <span class="skill-badge small">storybook</span><span class="skill-badge small">css</span><span class="skill-badge small">vue</span>
                 </div>
-                <a href="#" class="stretched-link text-info mt-3 d-block">see case →</a>
+                <a href="#" class="text-primary-emphasis">learn more →</a>
             </div>
         </div>
     </div>
+    <div class="text-center mt-4">
+        <a href="#" class="btn btn-outline-primary rounded-5 px-5" style="border-color:#3070a5;">see all on github</a>
+    </div>
 </section>
 
-<!-- CERTS section - elegant bullet list -->
+<!-- CERTIFICATIONS + education (HR loves this) -->
 <section id="certs" class="container my-5 py-3">
-    <h2 class="section-title">certifications & credentials</h2>
+    <h2 class="section-header">licenses & certifications</h2>
     <div class="row g-3">
-        <div class="col-md-6">
-            <div class="soft-card d-flex align-items-center gap-3">
-                <i class="bi bi-patch-check-fill fs-1" style="color:#4e8ad4;"></i>
-                <div><h5 class="fw-semibold mb-1">Google UX Design Certificate</h5><small class="text-secondary-emphasis">2024 · advanced</small></div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card-prof d-flex align-items-center gap-3 flex-row">
+                <i class="bi bi-award fs-1" style="color:#175a87;"></i>
+                <div><h5 class="fw-semibold mb-0">Google UX Design</h5><small class="text-secondary">2024 · advanced</small></div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="soft-card d-flex align-items-center gap-3">
-                <i class="bi bi-patch-check-fill fs-1" style="color:#4e8ad4;"></i>
-                <div><h5 class="fw-semibold mb-1">Meta Frontend Developer</h5><small class="text-secondary-emphasis">2023 · with honors</small></div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card-prof d-flex align-items-center gap-3 flex-row">
+                <i class="bi bi-award fs-1" style="color:#175a87;"></i>
+                <div><h5 class="fw-semibold mb-0">AWS Cloud Practitioner</h5><small class="text-secondary">2025</small></div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="soft-card d-flex align-items-center gap-3">
-                <i class="bi bi-patch-check-fill fs-1" style="color:#4e8ad4;"></i>
-                <div><h5 class="fw-semibold mb-1">AWS Cloud Practitioner</h5><small class="text-secondary-emphasis">2025</small></div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card-prof d-flex align-items-center gap-3 flex-row">
+                <i class="bi bi-award fs-1" style="color:#175a87;"></i>
+                <div><h5 class="fw-semibold mb-0">ScrumMaster PSM I</h5><small class="text-secondary">2023</small></div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="soft-card d-flex align-items-center gap-3">
-                <i class="bi bi-patch-check-fill fs-1" style="color:#4e8ad4;"></i>
-                <div><h5 class="fw-semibold mb-1">Scrum Master PSM I</h5><small class="text-secondary-emphasis">2023</small></div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card-prof d-flex align-items-center gap-3 flex-row">
+                <i class="bi bi-award fs-1" style="color:#175a87;"></i>
+                <div><h5 class="fw-semibold mb-0">Meta Frontend dev</h5><small class="text-secondary">2023</small></div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card-prof d-flex align-items-center gap-3 flex-row">
+                <i class="bi bi-award fs-1" style="color:#175a87;"></i>
+                <div><h5 class="fw-semibold mb-0">ITIL Foundation</h5><small class="text-secondary">2024</small></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- elegant stats / fun fact - not too loud -->
-<section class="container my-4">
-    <div class="soft-card p-4">
-        <div class="row text-center g-3">
-            <div class="col-4"><span class="fs-2 fw-semibold text-info" id="stat1">0</span><span class="d-block text-secondary-emphasis">commits</span></div>
-            <div class="col-4"><span class="fs-2 fw-semibold text-info" id="stat2">0</span><span class="d-block text-secondary-emphasis">cups</span></div>
-            <div class="col-4"><span class="fs-2 fw-semibold text-info" id="stat3">0</span><span class="d-block text-secondary-emphasis">stars</span></div>
+<!-- IMPACT / METRICS – hr people love numbers, tech loves scale -->
+<section id="impact" class="container my-5">
+    <div class="card-prof p-5">
+        <h2 class="section-header" style="margin-bottom: 1.5rem;">impact & results</h2>
+        <div class="row g-4 text-center">
+            <div class="col-sm-4">
+                <div class="stat-number">98%</div>
+                <div class="text-secondary">user satisfaction (CSAT)</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="stat-number">2.4M</div>
+                <div class="text-secondary">end users reached</div>
+            </div>
+            <div class="col-sm-4">
+                <div class="stat-number">34%</div>
+                <div class="text-secondary">avg. efficiency gain</div>
+            </div>
         </div>
-    </div>
-</section>
-
-<!-- CONTACT / footer elegant -->
-<section id="contact" class="container mt-5 pb-4">
-    <div class="soft-card">
-        <div class="row align-items-center">
+        <div class="row mt-4 g-3">
             <div class="col-md-6">
-                <h3 class="fw-semibold">let’s connect</h3>
-                <p class="text-secondary-emphasis">Minimal, human, and open to interesting projects.</p>
-                <div class="d-flex gap-4 fs-4">
-                    <a href="#" class="text-info"><i class="bi bi-linkedin"></i></a>
-                    <a href="#" class="text-info"><i class="bi bi-github"></i></a>
-                    <a href="#" class="text-info"><i class="bi bi-envelope-fill"></i></a>
-                </div>
+                <div class="d-flex justify-content-between"><span>design ops maturity</span> <strong>Level 4/5</strong></div>
+                <div class="progress-comp mt-1"><div class="progress-comp-bar" style="width:80%"></div></div>
             </div>
-            <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                <span class="badge-subtle">alex@alex.design</span><br>
-                <span class="badge-subtle mt-2">based in nyc</span>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-between"><span>code coverage (frontend)</span> <strong>87%</strong></div>
+                <div class="progress-comp mt-1"><div class="progress-comp-bar" style="width:87%"></div></div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT / soft call to action -->
+<section id="contact" class="container mt-5 pb-5">
+    <div class="card-prof d-flex flex-wrap align-items-center justify-content-between">
+        <div>
+            <h3 class="fw-semibold mb-1">interested in working together?</h3>
+            <p class="text-secondary mb-0">I'm available for select freelance or full-time opportunities.</p>
+        </div>
+        <div class="mt-3 mt-md-0">
+            <a href="#" class="btn btn-primary rounded-5 px-4 py-2" style="background:#1c5c8c;">riley@hire.me</a>
+            <a href="#" class="btn btn-outline-primary rounded-5 px-4 py-2 ms-2 border-2"><i class="bi bi-linkedin"></i></a>
         </div>
     </div>
 </section>
 
 <!-- simple footer -->
-<footer class="footer-minimal py-4">
+<footer class="footer-light py-4">
     <div class="container text-center">
-        <p class="mb-0 small">© 2025 Alex Rivera · built with simplicity</p>
+        <p class="mb-0 small">© 2025 Riley Harper – portfolio designed for humans & hiring teams</p>
     </div>
 </footer>
 
-<!-- Bootstrap JS (for navbar toggler, but not required for scrolling) -->
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- minimal animation: counters (simple) -->
+<!-- lightweight counters for numbers (optional) -->
 <script>
     (function() {
-        // simple fade in counters (just for elegance)
-        function animateValue(id, start, end, duration) {
-            let range = end - start;
-            let current = start;
-            let increment = end > start ? 1 : -1;
-            let stepTime = Math.abs(Math.floor(duration / range));
-            let obj = document.getElementById(id);
-            if (!obj) return;
-            let timer = setInterval(function() {
-                current += increment;
-                obj.textContent = current;
-                if (current == end) {
-                    clearInterval(timer);
-                }
-            }, stepTime);
-        }
-        animateValue('stat1', 0, 284, 1500);
-        animateValue('stat2', 0, 739, 1800);
-        animateValue('stat3', 0, 124, 1300);
+        // static but we can keep numbers — no need for animation.
+        console.log('HR + tech friendly portfolio');
     })();
 </script>
 
-<!-- extra style to ensure scroll works -->
+<!-- style small additions -->
 <style>
-    /* explicit overflow */
+    .text-secondary-emphasis {
+        color: #2b506e !important;
+    }
+    .btn-primary:hover {
+        background: #124a73 !important;
+    }
+    .card-prof {
+        transition: all 0.2s;
+    }
+    .container {
+        max-width: 1280px;
+    }
     body {
         overflow-y: auto;
     }
-    .container {
-        width: 100%;
-        max-width: 1320px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    /* text colors */
-    .text-secondary-emphasis {
-        color: #a2b9d4 !important;
-    }
-    .btn-primary:hover {
-        background: #366291 !important;
+    .achievement-tag i {
+        margin-right: 4px;
     }
 </style>
 
