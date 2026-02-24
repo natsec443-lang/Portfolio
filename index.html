@@ -3,498 +3,421 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>root@v1kram:~#</title>
-    <!-- Bootstrap (dark) + icons + hacker fonts -->
+    <title>Alex Rivera · design & code</title>
+    <!-- Bootstrap 5 dark preferred (but we override to custom dark) + icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <!-- elegant font: Inter (clean and modern) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
-        /* --- ROOT --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         body {
-            background: #0b0f0b;
-            color: #b7ffb7;
-            font-family: 'Share Tech Mono', 'Fira Code', monospace;
-            position: relative;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #111418;
+            color: #e6edf3;
+            line-height: 1.6;
+            overflow-y: auto;      /* ensure scrolling works */
             overflow-x: hidden;
+            min-height: 100vh;
+            scroll-behavior: smooth;
         }
-        /* matrix rain canvas overlay (very subtle) */
-        #matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            opacity: 0.12;
-            pointer-events: none;
-            font-family: 'Share Tech Mono', monospace;
-            color: #1f3b1f;
+        /* simple, elegant scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e262e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3d4f5e;
+            border-radius: 20px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5a7387;
         }
 
-        /* ---- hacker scrollbar ---- */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f2b0f; }
-        ::-webkit-scrollbar-thumb { background: #2f9f2f; border-radius: 0; box-shadow: inset 0 0 6px #00ff00; }
-
-        /* --- terminal panels --- */
-        .terminal-panel {
-            background: rgba(8, 20, 8, 0.85);
-            backdrop-filter: blur(4px);
-            border: 1px solid #1f9f1f;
-            box-shadow: 0 0 20px #1f4f1f, inset 0 0 20px #0f3f0f;
-            border-radius: 0;
-            color: #cfefcf;
+        /* typography */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
-        .crt::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(0deg, rgba(0,20,0,0.1) 0px, rgba(0,50,0,0.1) 2px, transparent 3px, transparent 5px);
-            pointer-events: none;
-            z-index: 2;
-        }
-        .crt {
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 650;
+            color: #f0f6fc;
+            margin-bottom: 2rem;
             position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 60px;
+            height: 3px;
+            background: #4a80c0;
+            border-radius: 3px;
+        }
+
+        /* clean cards */
+        .soft-card {
+            background: #1c242c;
+            border-radius: 24px;
+            padding: 2rem 1.8rem;
+            transition: 0.2s ease;
+            border: 1px solid #2c3a48;
+            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.6);
+        }
+        .soft-card:hover {
+            border-color: #4a80c0;
+            background: #202a34;
+            transform: translateY(-4px);
+        }
+
+        /* badge minimal */
+        .badge-subtle {
+            background: #28323e;
+            color: #cbd5e6;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid #3e5265;
+        }
+
+        /* skill pill */
+        .skill-pill {
+            background: #1f2a35;
+            border: 1px solid #3d5568;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: #d4e2f2;
+            transition: 0.2s;
+            display: inline-block;
+        }
+        .skill-pill:hover {
+            background: #2d4055;
+            border-color: #5f8bc9;
+            color: white;
+        }
+
+        /* progress minimal */
+        .progress-light {
+            background: #26303b;
+            height: 6px;
+            border-radius: 40px;
             overflow: hidden;
         }
-
-        /* --- glitch text effect --- */
-        .glitch {
-            text-shadow: -2px 0 #00ff00, 2px 0 #003300;
-            animation: glitch-anim 0.3s infinite alternate;
-        }
-        @keyframes glitch-anim {
-            0% { text-shadow: -2px 0 #0f0, 2px 0 #030; }
-            25% { text-shadow: 2px 0 #0f0, -2px 0 #030; }
-            50% { text-shadow: -3px 0 #030, 3px 0 #0f0; }
-            100% { text-shadow: 2px 0 #030, -2px 0 #0f0; }
+        .progress-fill {
+            background: linear-gradient(90deg, #4f8ad4, #7cb0ff);
+            height: 6px;
+            border-radius: 40px;
+            width: 0%;
         }
 
-        /* --- blinking cursor --- */
-        .cursor-blink {
-            background: #1f9f1f;
-            width: 12px;
-            height: 1.5em;
-            display: inline-block;
-            animation: blink 1s step-end infinite;
+        /* navbar minimal */
+        .navbar-elegant {
+            background: #111418;
+            border-bottom: 1px solid #26303b;
+            padding: 1rem 0;
         }
-        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-
-        /* --- project card (hacked) --- */
-        .hack-card {
-            background: #0f1a0f;
-            border: 1px solid #1f8f1f;
-            padding: 1.8rem 1.5rem;
-            transition: 0.15s ease;
-            box-shadow: 0 5px 15px rgba(0,50,0,0.8);
-            position: relative;
-        }
-        .hack-card:hover {
-            border-color: #3fff3f;
-            box-shadow: 0 0 35px #1f6f1f, inset 0 0 10px #1f4f1f;
-            transform: translateY(-5px) scale(1.01);
-        }
-        .hack-card .corner {
-            position: absolute;
-            width: 16px; height: 16px;
-            border-style: solid;
-            border-color: #2fbf2f;
-        }
-        .corner-tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
-        .corner-br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
-
-        /* --- ascii / badge --- */
-        .badge-hack {
-            background: #0f2b0f;
-            border: 1px solid #3bb83b;
-            color: #adffad;
-            padding: 0.5rem 1.2rem;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-        }
-        .badge-hack i {
-            color: #5fff5f;
-        }
-
-        /* --- skill chip (terminal style) --- */
-        .skill-chip {
-            border: 1px solid #2f9f2f;
-            background: #0a1f0a;
-            padding: 0.4rem 1.2rem;
-            font-size: 0.95rem;
-            display: inline-block;
-            color: #9fef9f;
-            box-shadow: 0 0 5px #1f5f1f;
+        .navbar-elegant .nav-link {
+            color: #b1c3d8;
+            font-weight: 500;
+            margin: 0 0.8rem;
+            padding: 0.3rem 0;
+            border-bottom: 2px solid transparent;
             transition: 0.2s;
         }
-        .skill-chip:hover {
-            background: #1f4f1f;
-            color: #fff;
-            border-color: #6fff6f;
-            text-shadow: 0 0 8px #0f0;
+        .navbar-elegant .nav-link:hover {
+            color: white;
+            border-bottom-color: #4f8ad4;
         }
 
-        /* progress bar - decay */
-        .progress-hack {
-            background: #1f3f1f;
-            height: 12px;
-            border-radius: 0;
-        }
-        .progress-fill {
-            background: linear-gradient(90deg, #2f9f2f, #8fff8f);
-            height: 12px;
-            width: 0%;
-            box-shadow: 0 0 18px #0f0;
-            border-radius: 0;
+        /* avatar soft circle */
+        .avatar-grace {
+            border-radius: 50%;
+            border: 3px solid #314e72;
+            padding: 5px;
+            background: #1c242c;
+            box-shadow: 0 20px 30px -10px black;
         }
 
-        /* divider with prompt */
-        .prompt-line {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #2fbf2f;
-            font-size: 1rem;
-        }
-        .prompt-line::before {
-            content: "$>";
-            font-weight: bold;
-            color: #6fef6f;
+        /* footer minimal */
+        .footer-minimal {
+            background: #0f161d;
+            border-top: 1px solid #26303b;
+            color: #8f9fb1;
         }
 
-        /* footer glitch */
-        .footer-hack {
-            background: #051005;
-            border-top: 2px solid #1f9f1f;
-            box-shadow: 0 -10px 30px #0f2f0f;
+        /* fix for scrolling: ensure body and container allow overflow */
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+        .container {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        /* simple link */
+        a {
+            color: #8fb4e8;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #b8d1ff;
+            text-decoration: underline;
         }
     </style>
 </head>
-<body class="crt">
+<body>
 
-<!-- matrix background canvas (simple js rain) -->
-<canvas id="matrix-bg"></canvas>
-
-<!-- NAVBAR : root@host -->
-<nav class="navbar navbar-expand-lg navbar-dark border-bottom border-success" style="background:#0a1a0a; border-color:#2f9f2f !important;">
-    <div class="container-fluid px-4">
-        <a class="navbar-brand fw-bold text-success" href="#">
-            <i class="bi bi-terminal-split me-2" style="color:#3fff3f;"></i> root@v1kram:~#
-        </a>
-        <button class="navbar-toggler border-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHack">
-            <span class="navbar-toggler-icon"></span>
+<!-- minimal navbar -->
+<nav class="navbar navbar-expand-md navbar-elegant">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3 text-light" href="#">A.R.</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarHack">
-            <ul class="navbar-nav ms-auto gap-3">
-                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#work">~/work</a></li>
-                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#certs">~/certs</a></li>
-                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#skills">~/skills</a></li>
-                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#stats">~/stats</a></li>
-                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#">⏻</a></li>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#work">Work</a></li>
+                <li class="nav-item"><a class="nav-link" href="#certs">Certs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- HERO : hacker prompt -->
-<section class="container mt-5 pt-3">
+<!-- HERO section - clean intro -->
+<section class="container mt-5 pt-2">
     <div class="row align-items-center g-5">
         <div class="col-lg-8">
-            <div class="prompt-line mb-2">whoami</div>
-            <h1 class="display-2 fw-bold glitch" style="font-family: 'Share Tech Mono';">v1kram_4N0N</h1>
-            <div class="d-flex align-items-center gap-3 mt-3">
-                <span class="badge-hack"><i class="bi bi-shield"></i> root: /bin/architect</span>
-                <span class="badge-hack"><i class="bi bi-bug"></i> kernel 6.6</span>
-            </div>
-            <p class="lead mt-4" style="color:#b0f0b0;">
-                <span class="text-light-emphasis">></span> penetration testing · secure dev · 0days <span class="text-info">[white hat]</span><br>
-                <span class="text-light-emphasis">>></span> 14+ exploits reported · 9 CVEs credited · DEFCON speaker.
-            </p>
+            <span class="badge-subtle"><i class="bi bi-moon-stars me-1"></i> product designer & frontend dev</span>
+            <h1 class="display-3 fw-bold mt-3 mb-3" style="color:#ffffff;">crafting simple,<br>human interfaces</h1>
+            <p class="lead text-secondary-emphasis" style="color:#b6c7e0 !important;">Hi, I'm Alex. I blend minimal design with solid code. Over 6 years of creating digital products that are both elegant and functional.</p>
             <div class="d-flex gap-3 mt-4">
-                <a href="#" class="btn btn-outline-success rounded-0 px-5 py-2 border-2 fw-bold" style="box-shadow:0 0 15px #0f0;"><i class="bi bi-file-earmark-binary me-2"></i>gpg key</a>
-                <a href="#" class="btn btn-success rounded-0 px-5 py-2 fw-bold" style="background:#1f9f1f; border:none; box-shadow:0 0 25px #0f0;">decrypt resume</a>
+                <a href="#work" class="btn btn-primary rounded-5 px-5 py-2 fw-semibold" style="background:#2b4e7a; border:none; box-shadow: 0 8px 16px #0f1f2f;">see work</a>
+                <a href="#" class="btn btn-outline-secondary rounded-5 px-5 py-2 fw-semibold" style="border-color:#415a77; color:#d3e2f5;">resume</a>
             </div>
-            <!-- live terminal output -->
-            <div class="mt-4 terminal-panel p-3 w-100" style="max-width:500px;">
-                <span class="text-light">[v1kram@payload ~]$</span> <span class="text-white-50">last -x | grep hack</span><br>
-                <span class="text-success">hackthebox   pts/2        🗲 2026-02-24  root [00:42]</span><br>
-                <span class="text-success">defcon      tty2         🗲 2026-02-23  still logged in</span>
+            <!-- subtle stats -->
+            <div class="d-flex gap-4 mt-5">
+                <div><span class="fs-2 fw-semibold text-info">9+</span> <span class="text-secondary-emphasis">projects</span></div>
+                <div><span class="fs-2 fw-semibold text-info">4.9</span> <span class="text-secondary-emphasis">rating</span></div>
+                <div><span class="fs-2 fw-semibold text-info">12</span> <span class="text-secondary-emphasis">certifications</span></div>
             </div>
         </div>
         <div class="col-lg-4 text-center">
-            <div class="border border-success p-2 d-inline-block" style="box-shadow:0 0 40px #1f5f1f;">
-                <img src="https://i.pravatar.cc/400?u=101" class="img-fluid" style="filter: grayscale(100%) contrast(1.5) brightness(0.7); opacity:0.9;">
+            <div class="avatar-grace d-inline-block">
+                <img src="https://i.pravatar.cc/350?u=104" alt="avatar" class="img-fluid rounded-circle" style="max-width: 260px;">
             </div>
-            <div class="mt-2 small text-success">GPG fingerprint: 2F3A 9C21 4B77 8D01</div>
         </div>
     </div>
 </section>
 
-<!-- SKILLS: decoded -->
+<!-- SKILLS section - minimal progress, elegant chips -->
 <section id="skills" class="container my-5 py-3">
-    <div class="prompt-line mb-4">ls -la /skills/</div>
+    <h2 class="section-title">capabilities</h2>
     <div class="row g-4">
         <div class="col-md-6">
-            <div class="terminal-panel p-4 h-100">
-                <h5 class="fw-bold"><i class="bi bi-braces"></i> <span class="text-success">exploitation_lang</span></h5>
-                <div class="mt-4 d-flex flex-wrap gap-2">
-                    <span class="skill-chip">asm_x86</span><span class="skill-chip">python3</span><span class="skill-chip">C</span>
-                    <span class="skill-chip">rust</span><span class="skill-chip">js (reverse)</span><span class="skill-chip">bash</span>
-                    <span class="skill-chip">powershell</span><span class="skill-chip">lua</span>
-                </div>
-                <div class="mt-4">
-                    <div class="d-flex justify-content-between"><span>binary exploitation</span> <span class="text-success">90%</span></div>
-                    <div class="progress-hack mt-1"><div class="progress-fill" style="width:90%"></div></div>
+            <div class="soft-card">
+                <div class="d-flex align-items-center gap-2 mb-3"><i class="bi bi-brush fs-3" style="color:#6d9eeb;"></i><h4 class="mb-0">design</h4></div>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="skill-pill">Figma</span><span class="skill-pill">UI/UX</span><span class="skill-pill">prototyping</span><span class="skill-pill">design systems</span>
                 </div>
                 <div class="mt-3">
-                    <div class="d-flex justify-content-between"><span>web3/blockchain auditing</span> <span class="text-success">72%</span></div>
-                    <div class="progress-hack mt-1"><div class="progress-fill" style="width:72%"></div></div>
+                    <div class="d-flex justify-content-between"><span>visual design</span> <span class="text-info">95%</span></div>
+                    <div class="progress-light mt-1"><div class="progress-fill" style="width:95%"></div></div>
+                </div>
+                <div class="mt-3">
+                    <div class="d-flex justify-content-between"><span>user research</span> <span class="text-info">80%</span></div>
+                    <div class="progress-light mt-1"><div class="progress-fill" style="width:80%"></div></div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="terminal-panel p-4 h-100">
-                <h5 class="fw-bold"><i class="bi bi-shield-lock"></i> <span class="text-success">adversarial_tools</span></h5>
-                <div class="mt-4 d-flex flex-wrap gap-2">
-                    <span class="skill-chip">metasploit</span><span class="skill-chip">ghidra</span><span class="skill-chip">burp</span>
-                    <span class="skill-chip">wireshark</span><span class="skill-chip">volatility</span><span class="skill-chip">LLVM pass</span>
-                </div>
-                <div class="mt-4">
-                    <div class="d-flex justify-content-between"><span>red team infrastructure</span> <span class="text-success">88%</span></div>
-                    <div class="progress-hack mt-1"><div class="progress-fill" style="width:88%"></div></div>
+            <div class="soft-card">
+                <div class="d-flex align-items-center gap-2 mb-3"><i class="bi bi-code-slash fs-3" style="color:#6d9eeb;"></i><h4 class="mb-0">frontend</h4></div>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="skill-pill">React</span><span class="skill-pill">TypeScript</span><span class="skill-pill">Tailwind</span><span class="skill-pill">Next.js</span>
                 </div>
                 <div class="mt-3">
-                    <div class="d-flex justify-content-between"><span>crypto / side-channel</span> <span class="text-success">65%</span></div>
-                    <div class="progress-hack mt-1"><div class="progress-fill" style="width:65%"></div></div>
+                    <div class="d-flex justify-content-between"><span>javascript/ts</span> <span class="text-info">90%</span></div>
+                    <div class="progress-light mt-1"><div class="progress-fill" style="width:90%"></div></div>
+                </div>
+                <div class="mt-3">
+                    <div class="d-flex justify-content-between"><span>responsive & a11y</span> <span class="text-info">88%</span></div>
+                    <div class="progress-light mt-1"><div class="progress-fill" style="width:88%"></div></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- WORK section (hacked projects) -->
+<!-- WORK section - elegant cards -->
 <section id="work" class="container py-4">
-    <div class="d-flex justify-content-between align-items-center">
-        <div class="prompt-line mb-0">find /var/portfolio -type p -name "*exploit*"</div>
-        <a href="#" class="text-success text-decoration-none"><i class="bi bi-arrow-up-right-circle"></i> all_pocs</a>
-    </div>
-
+    <h2 class="section-title">selected projects</h2>
     <div class="row g-4 mt-2">
         <div class="col-md-6 col-lg-4">
-            <div class="hack-card">
-                <div class="corner corner-tl"></div><div class="corner corner-br"></div>
-                <div class="d-flex justify-content-between"><span class="badge bg-dark text-success border-success">remote exploit</span><i class="bi bi-bug-fill text-success"></i></div>
-                <h4 class="fw-bold mt-3">CVE-2025-0785</h4>
-                <p class="text-secondary-emphasis">heap overflow in OpenVPN (pre-auth) · 0-click RCE. used in red team ops.</p>
-                <div class="my-3"><span class="skill-chip small">C</span> <span class="skill-chip small">ASM</span> <span class="skill-chip small">TCP/IP</span></div>
-                <a href="#" class="stretched-link text-success">[read more]</a>
+            <div class="soft-card h-100">
+                <span class="badge-subtle mb-3">web app</span>
+                <h3 class="fw-semibold">orbit finance</h3>
+                <p class="text-secondary-emphasis" style="color:#b6c8dd;">clean dashboard for personal finance with AI insights. used by 5k+ users.</p>
+                <div class="mt-3 d-flex gap-2">
+                    <span class="skill-pill small">react</span><span class="skill-pill small">d3</span><span class="skill-pill small">firebase</span>
+                </div>
+                <a href="#" class="stretched-link text-info mt-3 d-block">learn more →</a>
             </div>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="hack-card">
-                <div class="corner corner-tl"></div><div class="corner corner-br"></div>
-                <div class="d-flex justify-content-between"><span class="badge bg-dark text-success">malware unikernel</span><i class="bi bi-terminal-fill text-success"></i></div>
-                <h4 class="fw-bold mt-3">~shadowbind~</h4>
-                <p class="text-secondary-emphasis">Mirai‑inspired botnet for embedded devices with encrypted C2.</p>
-                <div class="my-3"><span class="skill-chip small">Rust</span> <span class="skill-chip small">Torus</span> <span class="skill-chip small">ELF</span></div>
-                <a href="#" class="stretched-link text-success">[decompile]</a>
+            <div class="soft-card h-100">
+                <span class="badge-subtle mb-3">design system</span>
+                <h3 class="fw-semibold">sierra UI</h3>
+                <p class="text-secondary-emphasis">component library adopted by 15+ products at my previous company.</p>
+                <div class="mt-3 d-flex gap-2">
+                    <span class="skill-pill small">figma</span><span class="skill-pill small">storybook</span><span class="skill-pill small">css</span>
+                </div>
+                <a href="#" class="stretched-link text-info mt-3 d-block">explore →</a>
             </div>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="hack-card">
-                <div class="corner corner-tl"></div><div class="corner corner-br"></div>
-                <div class="d-flex justify-content-between"><span class="badge bg-dark text-success">defense evasion</span><i class="bi bi-shield-x text-success"></i></div>
-                <h4 class="fw-bold mt-3">EDR-Purgatory</h4>
-                <p class="text-secondary-emphasis">sleep & unhook bypass techniques for AV/EDR (research only).</p>
-                <div class="my-3"><span class="skill-chip small">C++</span> <span class="skill-chip small">ntapi</span> <span class="skill-chip small">syscalls</span></div>
-                <a href="#" class="stretched-link text-success">[whitepaper]</a>
+            <div class="soft-card h-100">
+                <span class="badge-subtle mb-3">mobile</span>
+                <h3 class="fw-semibold">habits garden</h3>
+                <p class="text-secondary-emphasis">gentle habit tracker with 4.8 stars on both stores.</p>
+                <div class="mt-3 d-flex gap-2">
+                    <span class="skill-pill small">react native</span><span class="skill-pill small">realm</span>
+                </div>
+                <a href="#" class="stretched-link text-info mt-3 d-block">see case →</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- CERTS section - rooted -->
-<section id="certs" class="container my-5 py-4">
-    <div class="prompt-line mb-4">cat /etc/certs | grep "valid"</div>
+<!-- CERTS section - elegant bullet list -->
+<section id="certs" class="container my-5 py-3">
+    <h2 class="section-title">certifications & credentials</h2>
     <div class="row g-3">
         <div class="col-md-6">
-            <div class="terminal-panel p-3 d-flex gap-3 align-items-center">
-                <i class="bi bi-shield-fill-check fs-1 text-success"></i>
-                <div><h5 class="fw-bold mb-0">OSCP (Offensive Security)</h5><small class="text-success-emphasis">valid until 2028 · exam: 100%</small></div>
+            <div class="soft-card d-flex align-items-center gap-3">
+                <i class="bi bi-patch-check-fill fs-1" style="color:#4e8ad4;"></i>
+                <div><h5 class="fw-semibold mb-1">Google UX Design Certificate</h5><small class="text-secondary-emphasis">2024 · advanced</small></div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="terminal-panel p-3 d-flex gap-3 align-items-center">
-                <i class="bi bi-cpu fs-1 text-success"></i>
-                <div><h5 class="fw-bold mb-0">OSED / EXP-301</h5><small class="text-success-emphasis">windows exploit dev</small></div>
+            <div class="soft-card d-flex align-items-center gap-3">
+                <i class="bi bi-patch-check-fill fs-1" style="color:#4e8ad4;"></i>
+                <div><h5 class="fw-semibold mb-1">Meta Frontend Developer</h5><small class="text-secondary-emphasis">2023 · with honors</small></div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="terminal-panel p-3 d-flex gap-3 align-items-center">
-                <i class="bi bi-hdd-stack fs-1 text-success"></i>
-                <div><h5 class="fw-bold mb-0">CRTP (certified red team)</h5><small class="text-success-emphasis">active directory / 2025</small></div>
+            <div class="soft-card d-flex align-items-center gap-3">
+                <i class="bi bi-patch-check-fill fs-1" style="color:#4e8ad4;"></i>
+                <div><h5 class="fw-semibold mb-1">AWS Cloud Practitioner</h5><small class="text-secondary-emphasis">2025</small></div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="terminal-panel p-3 d-flex gap-3 align-items-center">
-                <i class="bi bi-radioactive fs-1 text-success"></i>
-                <div><h5 class="fw-bold mb-0">eWPTX (web app pentest)</h5><small class="text-success-emphasis">advanced xss & deserialization</small></div>
+            <div class="soft-card d-flex align-items-center gap-3">
+                <i class="bi bi-patch-check-fill fs-1" style="color:#4e8ad4;"></i>
+                <div><h5 class="fw-semibold mb-1">Scrum Master PSM I</h5><small class="text-secondary-emphasis">2023</small></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- LIVE stats (hacker counters) -->
-<section id="stats" class="container terminal-panel p-5 my-5">
-    <div class="prompt-line">uptime & load</div>
-    <div class="row text-center g-4 mt-3" id="hackCounters">
-        <div class="col-md-3 col-6">
-            <h2 class="display-4 fw-bold text-success" id="counter1">0</h2>
-            <span>systems pawned</span>
-        </div>
-        <div class="col-md-3 col-6">
-            <h2 class="display-4 fw-bold text-success" id="counter2">0</h2>
-            <span>0days</span>
-        </div>
-        <div class="col-md-3 col-6">
-            <h2 class="display-4 fw-bold text-success" id="counter3">0</h2>
-            <span>hackthebox rank</span>
-        </div>
-        <div class="col-md-3 col-6">
-            <h2 class="display-4 fw-bold text-success" id="counter4">0</h2>
-            <span>bug bounties</span>
+<!-- elegant stats / fun fact - not too loud -->
+<section class="container my-4">
+    <div class="soft-card p-4">
+        <div class="row text-center g-3">
+            <div class="col-4"><span class="fs-2 fw-semibold text-info" id="stat1">0</span><span class="d-block text-secondary-emphasis">commits</span></div>
+            <div class="col-4"><span class="fs-2 fw-semibold text-info" id="stat2">0</span><span class="d-block text-secondary-emphasis">cups</span></div>
+            <div class="col-4"><span class="fs-2 fw-semibold text-info" id="stat3">0</span><span class="d-block text-secondary-emphasis">stars</span></div>
         </div>
     </div>
-    <div class="text-center mt-3 small text-secondary-emphasis">[!] real-time from /dev/urandom</div>
 </section>
 
-<!-- FOOTER : hack the planet -->
-<footer class="footer-hack py-5 mt-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <i class="bi bi-skull fs-3 text-success"></i>
-                <p class="mt-2">Hack the planet! — reach me via encrypted channels only.</p>
-                <div class="d-flex gap-3 fs-4">
-                    <a href="#" class="text-success"><i class="bi bi-github"></i></a>
-                    <a href="#" class="text-success"><i class="bi bi-envelope-paper-fill"></i></a>
-                    <a href="#" class="text-success"><i class="bi bi-chat-dots-fill"></i></a>
+<!-- CONTACT / footer elegant -->
+<section id="contact" class="container mt-5 pb-4">
+    <div class="soft-card">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h3 class="fw-semibold">let’s connect</h3>
+                <p class="text-secondary-emphasis">Minimal, human, and open to interesting projects.</p>
+                <div class="d-flex gap-4 fs-4">
+                    <a href="#" class="text-info"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="text-info"><i class="bi bi-github"></i></a>
+                    <a href="#" class="text-info"><i class="bi bi-envelope-fill"></i></a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <h5 class="text-success">~/links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-success-emphasis text-decoration-none">/exploits</a></li>
-                    <li><a href="#" class="text-success-emphasis text-decoration-none">/pgp</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5 class="text-success">⏻ contact</h5>
-                <ul class="list-unstyled">
-                    <li><i class="bi bi-key me-2"></i>0x7F3A...9C21</li>
-                    <li><i class="bi bi-tor-front"></i> v1kram@onion</li>
-                </ul>
+            <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                <span class="badge-subtle">alex@alex.design</span><br>
+                <span class="badge-subtle mt-2">based in nyc</span>
             </div>
         </div>
-        <div class="border-top border-success pt-3 text-center" style="color:#2f9f2f;">© 2025 — root@v1kram · all rights reversed</div>
     </div>
 </section>
 
-<!-- Bootstrap JS -->
+<!-- simple footer -->
+<footer class="footer-minimal py-4">
+    <div class="container text-center">
+        <p class="mb-0 small">© 2025 Alex Rivera · built with simplicity</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS (for navbar toggler, but not required for scrolling) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- minimal animation: counters (simple) -->
 <script>
     (function() {
-        // matrix rain
-        const canvas = document.getElementById('matrix-bg');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        function resizeCanvas() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-        }
-        resizeCanvas();
-        const letters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-        const fontSize = 14;
-        const columns = Math.floor(width / fontSize);
-        const drops = Array(columns).fill(1);
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 15, 0, 0.04)';
-            ctx.fillRect(0, 0, width, height);
-            ctx.fillStyle = '#0f6';
-            ctx.font = fontSize + 'px "Share Tech Mono", monospace';
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters[Math.floor(Math.random() * letters.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-        setInterval(drawMatrix, 70);
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            // recalc columns
-            const newCols = Math.floor(width / fontSize);
-            drops.length = newCols;
-            for (let i=0; i<newCols; i++) drops[i] = drops[i] || Math.random() * 100;
-        });
-
-        // animated counters (hacker style)
-        function animateCounter(id, target) {
-            let el = document.getElementById(id);
-            if (!el) return;
-            let current = 0;
-            let step = target / 45; // smooth-ish
-            let timer = setInterval(() => {
-                current += step;
-                if (current >= target) {
-                    el.textContent = target;
+        // simple fade in counters (just for elegance)
+        function animateValue(id, start, end, duration) {
+            let range = end - start;
+            let current = start;
+            let increment = end > start ? 1 : -1;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            let obj = document.getElementById(id);
+            if (!obj) return;
+            let timer = setInterval(function() {
+                current += increment;
+                obj.textContent = current;
+                if (current == end) {
                     clearInterval(timer);
-                } else {
-                    el.textContent = Math.floor(current);
                 }
-            }, 40);
+            }, stepTime);
         }
-        animateCounter('counter1', 47);
-        animateCounter('counter2', 9);
-        animateCounter('counter3', 23); // htb rank
-        animateCounter('counter4', 186); // bounties
-
-        // prompt blink effect
-        // add cursor after prompts?
+        animateValue('stat1', 0, 284, 1500);
+        animateValue('stat2', 0, 739, 1800);
+        animateValue('stat3', 0, 124, 1300);
     })();
 </script>
 
-<!-- Additional glitchy tweaks -->
+<!-- extra style to ensure scroll works -->
 <style>
-    .text-success-emphasis { color: #6fef6f !important; }
-    .navbar-nav .nav-link { color: #7fcf7f; }
-    .navbar-nav .nav-link:hover { color: #cfefcf; text-shadow: 0 0 5px #0f0; }
-    .terminal-panel, .hack-card { border-radius: 0; }
-    .btn-outline-success { border-color: #2f9f2f; color: #9fef9f; }
-    .btn-outline-success:hover { background: #1f5f1f; color: #d0ffd0; border-color:#6fff6f; box-shadow: 0 0 25px #0f0; }
-    .glitch { animation: glitch 1.5s infinite; }
-    @keyframes glitch {
-        0%,100%{ text-shadow: -3px 0 #0f0, 3px 0 #030; }
-        20%{ text-shadow: 2px 0 #0f0, -2px 0 #030; }
-        40%{ text-shadow: -1px 0 #030, 1px 0 #0f0; }
-        70%{ text-shadow: 3px 0 #030, -3px 0 #0f0; }
+    /* explicit overflow */
+    body {
+        overflow-y: auto;
     }
-    /* ascii prompt line for each section could be used */
-    .prompt-line::before { content: ">$ "; color: #6fef6f; font-weight: bold; }
-    .container { position: relative; z-index: 5; }
+    .container {
+        width: 100%;
+        max-width: 1320px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* text colors */
+    .text-secondary-emphasis {
+        color: #a2b9d4 !important;
+    }
+    .btn-primary:hover {
+        background: #366291 !important;
+    }
 </style>
 
 </body>
