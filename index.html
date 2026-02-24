@@ -3,449 +3,498 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vikram · dev portfolio</title>
-    <!-- Bootstrap 5 (dark theme preferred) + icons -->
+    <title>root@v1kram:~#</title>
+    <!-- Bootstrap (dark) + icons + hacker fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <!-- Google Font: tech/inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* --- ROOT --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            font-family: 'Inter', sans-serif;
-            background: #0a0c0f;
-            color: #e0e4e9;
-            line-height: 1.6;
+            background: #0b0f0b;
+            color: #b7ffb7;
+            font-family: 'Share Tech Mono', 'Fira Code', monospace;
+            position: relative;
+            overflow-x: hidden;
         }
-        /* custom dark scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1a1e24; }
-        ::-webkit-scrollbar-thumb { background: #3a4a5c; border-radius: 12px; }
+        /* matrix rain canvas overlay (very subtle) */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.12;
+            pointer-events: none;
+            font-family: 'Share Tech Mono', monospace;
+            color: #1f3b1f;
+        }
 
-        /* glitchy glass panels */
-        .glass-panel {
-            background: rgba(18, 25, 35, 0.75);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(72, 120, 200, 0.2);
-            border-radius: 32px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        /* ---- hacker scrollbar ---- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f2b0f; }
+        ::-webkit-scrollbar-thumb { background: #2f9f2f; border-radius: 0; box-shadow: inset 0 0 6px #00ff00; }
+
+        /* --- terminal panels --- */
+        .terminal-panel {
+            background: rgba(8, 20, 8, 0.85);
+            backdrop-filter: blur(4px);
+            border: 1px solid #1f9f1f;
+            box-shadow: 0 0 20px #1f4f1f, inset 0 0 20px #0f3f0f;
+            border-radius: 0;
+            color: #cfefcf;
         }
-        .glow-text {
-            text-shadow: 0 0 8px #2a6fdb, 0 0 18px #1e4b8f;
+        .crt::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,20,0,0.1) 0px, rgba(0,50,0,0.1) 2px, transparent 3px, transparent 5px);
+            pointer-events: none;
+            z-index: 2;
         }
-        .neon-border {
-            border: 1px solid #2f6eb3;
-            box-shadow: 0 0 15px #0f3d74, inset 0 0 5px #1f4f8f;
-        }
-        .badge-cert {
-            background: linear-gradient(145deg, #142433, #0b141f);
-            border-left: 4px solid #3d8bff;
-            border-radius: 0 20px 20px 0;
-            padding: 1rem 1.5rem;
-            transition: 0.2s ease;
-        }
-        .badge-cert:hover {
-            border-left-width: 8px;
-            border-left-color: #70b0ff;
-            background: #1c2d40;
-            transform: translateX(6px);
-        }
-        .project-card {
-            background: #131b26;
-            border-radius: 30px;
-            padding: 1.8rem 1.5rem;
-            border: 1px solid #2f3e55;
-            transition: all 0.25s;
+        .crt {
             position: relative;
             overflow: hidden;
         }
-        .project-card::after {
-            content: "";
-            position: absolute;
-            top: -30%;
-            left: -20%;
-            width: 140%;
-            height: 140%;
-            background: radial-gradient(circle at 30% 30%, rgba(48, 144, 255, 0.05), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
+
+        /* --- glitch text effect --- */
+        .glitch {
+            text-shadow: -2px 0 #00ff00, 2px 0 #003300;
+            animation: glitch-anim 0.3s infinite alternate;
         }
-        .project-card:hover::after { opacity: 1; }
-        .project-card:hover {
-            border-color: #3d7bc9;
-            box-shadow: 0 20px 30px -10px #0f1f33;
-            transform: translateY(-8px);
+        @keyframes glitch-anim {
+            0% { text-shadow: -2px 0 #0f0, 2px 0 #030; }
+            25% { text-shadow: 2px 0 #0f0, -2px 0 #030; }
+            50% { text-shadow: -3px 0 #030, 3px 0 #0f0; }
+            100% { text-shadow: 2px 0 #030, -2px 0 #0f0; }
         }
-        .skill-chip {
-            background: #1e2a38;
-            border-radius: 60px;
-            padding: 0.6rem 1.4rem;
-            font-weight: 500;
-            color: #c6dfff;
-            border: 1px solid #314d70;
+
+        /* --- blinking cursor --- */
+        .cursor-blink {
+            background: #1f9f1f;
+            width: 12px;
+            height: 1.5em;
             display: inline-block;
-            transition: 0.15s;
-            backdrop-filter: blur(4px);
+            animation: blink 1s step-end infinite;
         }
-        .skill-chip:hover {
-            background: #27435f;
-            color: white;
-            border-color: #5d9eff;
-            box-shadow: 0 0 12px #1f4980;
+        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+        /* --- project card (hacked) --- */
+        .hack-card {
+            background: #0f1a0f;
+            border: 1px solid #1f8f1f;
+            padding: 1.8rem 1.5rem;
+            transition: 0.15s ease;
+            box-shadow: 0 5px 15px rgba(0,50,0,0.8);
+            position: relative;
         }
-        .progress-bar-custom {
-            background: linear-gradient(90deg, #3478e0, #7eb2ff);
-            border-radius: 40px;
-            height: 10px;
-            box-shadow: 0 0 8px #1b4b9c;
+        .hack-card:hover {
+            border-color: #3fff3f;
+            box-shadow: 0 0 35px #1f6f1f, inset 0 0 10px #1f4f1f;
+            transform: translateY(-5px) scale(1.01);
         }
-        .progress-bg {
-            background: #25303e;
-            border-radius: 40px;
-            height: 10px;
+        .hack-card .corner {
+            position: absolute;
+            width: 16px; height: 16px;
+            border-style: solid;
+            border-color: #2fbf2f;
         }
-        .icon-glow {
-            color: #59a5ff;
-            filter: drop-shadow(0 0 6px #285fa8);
+        .corner-tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+        .corner-br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+        /* --- ascii / badge --- */
+        .badge-hack {
+            background: #0f2b0f;
+            border: 1px solid #3bb83b;
+            color: #adffad;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
         }
-        .section-title {
-            font-weight: 800;
-            font-size: 2.5rem;
-            letter-spacing: -0.02em;
-            background: linear-gradient(130deg, #f0f5ff, #9ac1ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .badge-hack i {
+            color: #5fff5f;
         }
-        .footer-dark {
-            background: #0c111a;
-            border-top: 1px solid #28344a;
-        }
-        .btn-outline-tech {
-            border: 2px solid #3c6192;
-            border-radius: 60px;
-            padding: 0.6rem 2rem;
-            font-weight: 600;
-            background: transparent;
-            color: #cddeff;
+
+        /* --- skill chip (terminal style) --- */
+        .skill-chip {
+            border: 1px solid #2f9f2f;
+            background: #0a1f0a;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.95rem;
+            display: inline-block;
+            color: #9fef9f;
+            box-shadow: 0 0 5px #1f5f1f;
             transition: 0.2s;
         }
-        .btn-outline-tech:hover {
-            background: #1c3d64;
-            color: white;
-            border-color: #68a2ff;
-            box-shadow: 0 0 18px #0f3b70;
+        .skill-chip:hover {
+            background: #1f4f1f;
+            color: #fff;
+            border-color: #6fff6f;
+            text-shadow: 0 0 8px #0f0;
         }
-        .avatar-frame {
-            border-radius: 60% 40% 50% 50% / 40% 50% 60% 50%;
-            border: 4px solid #376fc2;
-            padding: 6px;
-            background: #0e1a28;
-            box-shadow: 0 20px 30px -5px black;
-            width: fit-content;
+
+        /* progress bar - decay */
+        .progress-hack {
+            background: #1f3f1f;
+            height: 12px;
+            border-radius: 0;
         }
-        /* typing animation simulated */
-        .typing {
-            border-right: 3px solid #3f87ff;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: blinkCursor 1s step-end infinite;
+        .progress-fill {
+            background: linear-gradient(90deg, #2f9f2f, #8fff8f);
+            height: 12px;
+            width: 0%;
+            box-shadow: 0 0 18px #0f0;
+            border-radius: 0;
         }
-        @keyframes blinkCursor { 50% { border-color: transparent; } }
+
+        /* divider with prompt */
+        .prompt-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #2fbf2f;
+            font-size: 1rem;
+        }
+        .prompt-line::before {
+            content: "$>";
+            font-weight: bold;
+            color: #6fef6f;
+        }
+
+        /* footer glitch */
+        .footer-hack {
+            background: #051005;
+            border-top: 2px solid #1f9f1f;
+            box-shadow: 0 -10px 30px #0f2f0f;
+        }
     </style>
 </head>
-<body>
+<body class="crt">
 
-<!-- NAVBAR (techy dark) -->
-<nav class="navbar navbar-expand-lg navbar-dark py-3" style="background: #0b0f16; border-bottom: 1px solid #263449;">
-    <div class="container">
-        <a class="navbar-brand fw-bolder fs-3" href="#">
-            <i class="bi bi-terminal-fill me-2" style="color: #3f87ff;"></i>V<span style="color: #74a9ff;">.</span>de<span style="color: #4e8bff;">v</span>
+<!-- matrix background canvas (simple js rain) -->
+<canvas id="matrix-bg"></canvas>
+
+<!-- NAVBAR : root@host -->
+<nav class="navbar navbar-expand-lg navbar-dark border-bottom border-success" style="background:#0a1a0a; border-color:#2f9f2f !important;">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold text-success" href="#">
+            <i class="bi bi-terminal-split me-2" style="color:#3fff3f;"></i> root@v1kram:~#
         </a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDark">
+        <button class="navbar-toggler border-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHack">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarDark">
+        <div class="collapse navbar-collapse" id="navbarHack">
             <ul class="navbar-nav ms-auto gap-3">
-                <li class="nav-item"><a class="nav-link text-light fw-semibold" href="#work">work</a></li>
-                <li class="nav-item"><a class="nav-link text-light fw-semibold" href="#certs">certs</a></li>
-                <li class="nav-item"><a class="nav-link text-light fw-semibold" href="#skills">stack</a></li>
-                <li class="nav-item"><a class="nav-link text-light fw-semibold" href="#stats">metrics</a></li>
+                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#work">~/work</a></li>
+                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#certs">~/certs</a></li>
+                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#skills">~/skills</a></li>
+                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#stats">~/stats</a></li>
+                <li class="nav-item"><a class="nav-link text-success-emphasis" href="#">⏻</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- HERO section with dynamic typed effect + dark glitch -->
+<!-- HERO : hacker prompt -->
 <section class="container mt-5 pt-3">
     <div class="row align-items-center g-5">
-        <div class="col-lg-7">
-            <span class="badge bg-primary bg-opacity-25 text-primary-emphasis px-4 py-2 rounded-pill mb-3 border border-primary"><i class="bi bi-cpu me-2"></i> full‑stack architect</span>
-            <h1 class="display-3 fw-bolder lh-1 mb-3">build, secure, <span class="glow-text typing" style="color:#aac9ff;">scale</span></h1>
-            <p class="lead fs-4" style="color: #b2c9e6;">Vikram Shetty — 7+ years shaping cloud-native apps, edge APIs, and developer tooling.  <span class="text-info">15+ shipped products</span>, 4 hackathon wins.</p>
-            <div class="d-flex gap-3 mt-4">
-                <a href="#work" class="btn btn-outline-tech"><i class="bi bi-grid-3x3-gap-fill me-2"></i>explore work</a>
-                <a href="#" class="btn btn-primary rounded-pill px-5 py-2 fw-bold" style="background: #1e4b99; border: none; box-shadow: 0 8px 20px #102c52;">resume <i class="bi bi-download ms-1"></i></a>
+        <div class="col-lg-8">
+            <div class="prompt-line mb-2">whoami</div>
+            <h1 class="display-2 fw-bold glitch" style="font-family: 'Share Tech Mono';">v1kram_4N0N</h1>
+            <div class="d-flex align-items-center gap-3 mt-3">
+                <span class="badge-hack"><i class="bi bi-shield"></i> root: /bin/architect</span>
+                <span class="badge-hack"><i class="bi bi-bug"></i> kernel 6.6</span>
             </div>
-            <!-- floating stats -->
-            <div class="d-flex gap-4 mt-5 pt-2">
-                <div><span class="fs-2 fw-bold text-info">12+</span> <span class="text-secondary">projects live</span></div>
-                <div><span class="fs-2 fw-bold text-info">8</span> <span class="text-secondary">certs</span></div>
-                <div><span class="fs-2 fw-bold text-info">∞</span> <span class="text-secondary">coffee</span></div>
+            <p class="lead mt-4" style="color:#b0f0b0;">
+                <span class="text-light-emphasis">></span> penetration testing · secure dev · 0days <span class="text-info">[white hat]</span><br>
+                <span class="text-light-emphasis">>></span> 14+ exploits reported · 9 CVEs credited · DEFCON speaker.
+            </p>
+            <div class="d-flex gap-3 mt-4">
+                <a href="#" class="btn btn-outline-success rounded-0 px-5 py-2 border-2 fw-bold" style="box-shadow:0 0 15px #0f0;"><i class="bi bi-file-earmark-binary me-2"></i>gpg key</a>
+                <a href="#" class="btn btn-success rounded-0 px-5 py-2 fw-bold" style="background:#1f9f1f; border:none; box-shadow:0 0 25px #0f0;">decrypt resume</a>
+            </div>
+            <!-- live terminal output -->
+            <div class="mt-4 terminal-panel p-3 w-100" style="max-width:500px;">
+                <span class="text-light">[v1kram@payload ~]$</span> <span class="text-white-50">last -x | grep hack</span><br>
+                <span class="text-success">hackthebox   pts/2        🗲 2026-02-24  root [00:42]</span><br>
+                <span class="text-success">defcon      tty2         🗲 2026-02-23  still logged in</span>
             </div>
         </div>
-        <div class="col-lg-5">
-            <div class="avatar-frame mx-auto" style="max-width: 300px;">
-                <img src="https://i.pravatar.cc/400?u=100" alt="avatar" class="img-fluid rounded-5" style="filter: grayscale(0.3);">
+        <div class="col-lg-4 text-center">
+            <div class="border border-success p-2 d-inline-block" style="box-shadow:0 0 40px #1f5f1f;">
+                <img src="https://i.pravatar.cc/400?u=101" class="img-fluid" style="filter: grayscale(100%) contrast(1.5) brightness(0.7); opacity:0.9;">
             </div>
+            <div class="mt-2 small text-success">GPG fingerprint: 2F3A 9C21 4B77 8D01</div>
         </div>
     </div>
 </section>
 
-<!-- SKILLS section (dynamic progress bars + chips) -->
-<section id="skills" class="container my-5 py-5">
-    <h2 class="section-title mb-4"><i class="bi bi-motherboard me-3 icon-glow"></i>core competencies</h2>
+<!-- SKILLS: decoded -->
+<section id="skills" class="container my-5 py-3">
+    <div class="prompt-line mb-4">ls -la /skills/</div>
     <div class="row g-4">
         <div class="col-md-6">
-            <div class="glass-panel p-4 h-100">
-                <h5 class="fw-bold"><i class="bi bi-code-slash me-2" style="color:#3d8bff;"></i> languages & frameworks</h5>
+            <div class="terminal-panel p-4 h-100">
+                <h5 class="fw-bold"><i class="bi bi-braces"></i> <span class="text-success">exploitation_lang</span></h5>
                 <div class="mt-4 d-flex flex-wrap gap-2">
-                    <span class="skill-chip">TypeScript</span><span class="skill-chip">Python</span><span class="skill-chip">Go</span>
-                    <span class="skill-chip">React/Next</span><span class="skill-chip">Node.js</span><span class="skill-chip">FastAPI</span>
-                    <span class="skill-chip">Rust</span><span class="skill-chip">Tailwind</span><span class="skill-chip">GraphQL</span>
+                    <span class="skill-chip">asm_x86</span><span class="skill-chip">python3</span><span class="skill-chip">C</span>
+                    <span class="skill-chip">rust</span><span class="skill-chip">js (reverse)</span><span class="skill-chip">bash</span>
+                    <span class="skill-chip">powershell</span><span class="skill-chip">lua</span>
                 </div>
                 <div class="mt-4">
-                    <div class="d-flex justify-content-between"><span>cloud (AWS/Azure)</span> <span class="text-info">92%</span></div>
-                    <div class="progress-bg mt-1"><div class="progress-bar-custom" style="width:92%"></div></div>
+                    <div class="d-flex justify-content-between"><span>binary exploitation</span> <span class="text-success">90%</span></div>
+                    <div class="progress-hack mt-1"><div class="progress-fill" style="width:90%"></div></div>
                 </div>
                 <div class="mt-3">
-                    <div class="d-flex justify-content-between"><span>kubernetes/helm</span> <span class="text-info">85%</span></div>
-                    <div class="progress-bg mt-1"><div class="progress-bar-custom" style="width:85%"></div></div>
+                    <div class="d-flex justify-content-between"><span>web3/blockchain auditing</span> <span class="text-success">72%</span></div>
+                    <div class="progress-hack mt-1"><div class="progress-fill" style="width:72%"></div></div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="glass-panel p-4 h-100">
-                <h5 class="fw-bold"><i class="bi bi-shield-lock-fill me-2" style="color:#3d8bff;"></i> security & infra</h5>
+            <div class="terminal-panel p-4 h-100">
+                <h5 class="fw-bold"><i class="bi bi-shield-lock"></i> <span class="text-success">adversarial_tools</span></h5>
                 <div class="mt-4 d-flex flex-wrap gap-2">
-                    <span class="skill-chip">terraform</span><span class="skill-chip">Docker</span><span class="skill-chip">github actions</span>
-                    <span class="skill-chip">oauth2</span><span class="skill-chip">OWASP</span><span class="skill-chip">prometheus</span>
+                    <span class="skill-chip">metasploit</span><span class="skill-chip">ghidra</span><span class="skill-chip">burp</span>
+                    <span class="skill-chip">wireshark</span><span class="skill-chip">volatility</span><span class="skill-chip">LLVM pass</span>
                 </div>
                 <div class="mt-4">
-                    <div class="d-flex justify-content-between"><span>CI/CD pipelines</span> <span class="text-info">95%</span></div>
-                    <div class="progress-bg mt-1"><div class="progress-bar-custom" style="width:95%"></div></div>
+                    <div class="d-flex justify-content-between"><span>red team infrastructure</span> <span class="text-success">88%</span></div>
+                    <div class="progress-hack mt-1"><div class="progress-fill" style="width:88%"></div></div>
                 </div>
                 <div class="mt-3">
-                    <div class="d-flex justify-content-between"><span>pen testing / auth</span> <span class="text-info">78%</span></div>
-                    <div class="progress-bg mt-1"><div class="progress-bar-custom" style="width:78%"></div></div>
+                    <div class="d-flex justify-content-between"><span>crypto / side-channel</span> <span class="text-success">65%</span></div>
+                    <div class="progress-hack mt-1"><div class="progress-fill" style="width:65%"></div></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- PROJECT WORK section (dynamic + interactive) -->
+<!-- WORK section (hacked projects) -->
 <section id="work" class="container py-4">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="section-title"><i class="bi bi-bricks me-2"></i>featured work</h2>
-        <a href="#" class="btn btn-sm btn-outline-tech">view all <i class="bi bi-arrow-up-right-circle ms-1"></i></a>
+        <div class="prompt-line mb-0">find /var/portfolio -type p -name "*exploit*"</div>
+        <a href="#" class="text-success text-decoration-none"><i class="bi bi-arrow-up-right-circle"></i> all_pocs</a>
     </div>
 
-    <!-- dynamic project cards (javascript enhanced hover) -->
-    <div class="row g-4 mt-2" id="projectGrid">
+    <div class="row g-4 mt-2">
         <div class="col-md-6 col-lg-4">
-            <div class="project-card h-100">
-                <div class="d-flex justify-content-between"><span class="badge bg-primary">production</span><i class="bi bi-github"></i></div>
-                <h4 class="fw-bold mt-3">KubeView</h4>
-                <p class="text-secondary-emphasis">real-time kubernetes visualizer with live port-forward and metrics.</p>
-                <div class="my-3"><span class="skill-chip small">Go</span> <span class="skill-chip small">React</span> <span class="skill-chip small">eBPF</span></div>
-                <a href="#" class="stretched-link" style="color:#6ea8ff;">inspect →</a>
+            <div class="hack-card">
+                <div class="corner corner-tl"></div><div class="corner corner-br"></div>
+                <div class="d-flex justify-content-between"><span class="badge bg-dark text-success border-success">remote exploit</span><i class="bi bi-bug-fill text-success"></i></div>
+                <h4 class="fw-bold mt-3">CVE-2025-0785</h4>
+                <p class="text-secondary-emphasis">heap overflow in OpenVPN (pre-auth) · 0-click RCE. used in red team ops.</p>
+                <div class="my-3"><span class="skill-chip small">C</span> <span class="skill-chip small">ASM</span> <span class="skill-chip small">TCP/IP</span></div>
+                <a href="#" class="stretched-link text-success">[read more]</a>
             </div>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="project-card h-100">
-                <div class="d-flex justify-content-between"><span class="badge bg-warning text-dark">scaling</span><i class="bi bi-stars"></i></div>
-                <h4 class="fw-bold mt-3">Vaultless</h4>
-                <p class="text-secondary-emphasis">serverless secret manager using AWS nitro & enclaves. 99.99% uptime.</p>
-                <div class="my-3"><span class="skill-chip small">Rust</span> <span class="skill-chip small">CDK</span> <span class="skill-chip small">JWT</span></div>
-                <a href="#" class="stretched-link" style="color:#6ea8ff;">audit report →</a>
+            <div class="hack-card">
+                <div class="corner corner-tl"></div><div class="corner corner-br"></div>
+                <div class="d-flex justify-content-between"><span class="badge bg-dark text-success">malware unikernel</span><i class="bi bi-terminal-fill text-success"></i></div>
+                <h4 class="fw-bold mt-3">~shadowbind~</h4>
+                <p class="text-secondary-emphasis">Mirai‑inspired botnet for embedded devices with encrypted C2.</p>
+                <div class="my-3"><span class="skill-chip small">Rust</span> <span class="skill-chip small">Torus</span> <span class="skill-chip small">ELF</span></div>
+                <a href="#" class="stretched-link text-success">[decompile]</a>
             </div>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="project-card h-100">
-                <div class="d-flex justify-content-between"><span class="badge bg-info text-dark">AI</span><i class="bi bi-cpu"></i></div>
-                <h4 class="fw-bold mt-3">Prompt MCP</h4>
-                <p class="text-secondary-emphasis">LLM gateway with prompt injection detection & cache.</p>
-                <div class="my-3"><span class="skill-chip small">Python</span> <span class="skill-chip small">vLLM</span> <span class="skill-chip small">Redis</span></div>
-                <a href="#" class="stretched-link" style="color:#6ea8ff;">try demo →</a>
+            <div class="hack-card">
+                <div class="corner corner-tl"></div><div class="corner corner-br"></div>
+                <div class="d-flex justify-content-between"><span class="badge bg-dark text-success">defense evasion</span><i class="bi bi-shield-x text-success"></i></div>
+                <h4 class="fw-bold mt-3">EDR-Purgatory</h4>
+                <p class="text-secondary-emphasis">sleep & unhook bypass techniques for AV/EDR (research only).</p>
+                <div class="my-3"><span class="skill-chip small">C++</span> <span class="skill-chip small">ntapi</span> <span class="skill-chip small">syscalls</span></div>
+                <a href="#" class="stretched-link text-success">[whitepaper]</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- CERTIFICATIONS section (badge style) -->
+<!-- CERTS section - rooted -->
 <section id="certs" class="container my-5 py-4">
-    <h2 class="section-title"><i class="bi bi-patch-check-fill me-3" style="color: #3d8bff;"></i>certifications & credentials</h2>
-    <div class="row mt-4 g-3">
+    <div class="prompt-line mb-4">cat /etc/certs | grep "valid"</div>
+    <div class="row g-3">
         <div class="col-md-6">
-            <div class="badge-cert d-flex align-items-center gap-3">
-                <i class="bi bi-aws fs-1" style="color: #ff9900;"></i>
-                <div><h5 class="fw-bold mb-1">AWS Solutions Architect Pro</h5><small class="text-secondary">valid until 2026 · recertified</small></div>
+            <div class="terminal-panel p-3 d-flex gap-3 align-items-center">
+                <i class="bi bi-shield-fill-check fs-1 text-success"></i>
+                <div><h5 class="fw-bold mb-0">OSCP (Offensive Security)</h5><small class="text-success-emphasis">valid until 2028 · exam: 100%</small></div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="badge-cert d-flex align-items-center gap-3">
-                <i class="bi bi-shield-lock fs-1" style="color: #b5dcff;"></i>
-                <div><h5 class="fw-bold mb-1">CISSP (ISC)²</h5><small class="text-secondary">information security</small></div>
+            <div class="terminal-panel p-3 d-flex gap-3 align-items-center">
+                <i class="bi bi-cpu fs-1 text-success"></i>
+                <div><h5 class="fw-bold mb-0">OSED / EXP-301</h5><small class="text-success-emphasis">windows exploit dev</small></div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="badge-cert d-flex align-items-center gap-3">
-                <i class="bi bi-google fs-1" style="color: #87b9ff;"></i>
-                <div><h5 class="fw-bold mb-1">Google Cloud – Professional Cloud Architect</h5><small class="text-secondary">issued 2024</small></div>
+            <div class="terminal-panel p-3 d-flex gap-3 align-items-center">
+                <i class="bi bi-hdd-stack fs-1 text-success"></i>
+                <div><h5 class="fw-bold mb-0">CRTP (certified red team)</h5><small class="text-success-emphasis">active directory / 2025</small></div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="badge-cert d-flex align-items-center gap-3">
-                <i class="bi bi-cpu fs-1" style="color: #66ccff;"></i>
-                <div><h5 class="fw-bold mb-1">Kubernetes CKA (Linux Foundation)</h5><small class="text-secondary">rank top 10%</small></div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="badge-cert d-flex align-items-center gap-3">
-                <i class="bi bi-microsoft fs-1"></i>
-                <div><h5 class="fw-bold mb-1">Azure Security Engineer (AZ-500)</h5><small class="text-secondary">plus SC-100</small></div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="badge-cert d-flex align-items-center gap-3">
-                <i class="bi bi-file-code fs-1" style="color: #ddd;"></i>
-                <div><h5 class="fw-bold mb-1">Meta Backend Specialization</h5><small class="text-secondary">Django & APIs</small></div>
+            <div class="terminal-panel p-3 d-flex gap-3 align-items-center">
+                <i class="bi bi-radioactive fs-1 text-success"></i>
+                <div><h5 class="fw-bold mb-0">eWPTX (web app pentest)</h5><small class="text-success-emphasis">advanced xss & deserialization</small></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- LIVE METRICS & cool counters (JavaScript updated) -->
-<section id="stats" class="container glass-panel p-5 my-5">
-    <div class="row text-center g-4" id="counterSection">
+<!-- LIVE stats (hacker counters) -->
+<section id="stats" class="container terminal-panel p-5 my-5">
+    <div class="prompt-line">uptime & load</div>
+    <div class="row text-center g-4 mt-3" id="hackCounters">
         <div class="col-md-3 col-6">
-            <h2 class="display-4 fw-bold text-primary" id="counter1">0</h2>
-            <span>commits (last year)</span>
+            <h2 class="display-4 fw-bold text-success" id="counter1">0</h2>
+            <span>systems pawned</span>
         </div>
         <div class="col-md-3 col-6">
-            <h2 class="display-4 fw-bold text-primary" id="counter2">0</h2>
-            <span>contributors</span>
+            <h2 class="display-4 fw-bold text-success" id="counter2">0</h2>
+            <span>0days</span>
         </div>
         <div class="col-md-3 col-6">
-            <h2 class="display-4 fw-bold text-primary" id="counter3">0</h2>
-            <span>cups of coffee</span>
+            <h2 class="display-4 fw-bold text-success" id="counter3">0</h2>
+            <span>hackthebox rank</span>
         </div>
         <div class="col-md-3 col-6">
-            <h2 class="display-4 fw-bold text-primary" id="counter4">0</h2>
-            <span>⭐ stars</span>
+            <h2 class="display-4 fw-bold text-success" id="counter4">0</h2>
+            <span>bug bounties</span>
         </div>
     </div>
-    <p class="text-center mt-4 text-secondary-emphasis"><i class="bi bi-arrow-repeat me-1"></i> live counters from GitHub & portfolio (updated each visit)</p>
+    <div class="text-center mt-3 small text-secondary-emphasis">[!] real-time from /dev/urandom</div>
 </section>
 
-<!-- FOOTER (dark tech) -->
-<footer class="footer-dark py-5 mt-5">
+<!-- FOOTER : hack the planet -->
+<footer class="footer-hack py-5 mt-5">
     <div class="container">
         <div class="row">
             <div class="col-md-6 mb-4">
-                <i class="bi bi-braces fs-3" style="color:#5293ff;"></i>
-                <p class="mt-2">always building — always shipping. reach out for collaborations or just a tech chat.</p>
-                <div class="social-icons fs-4">
-                    <a href="#" class="me-3" style="color:#7da6e0;"><i class="bi bi-github"></i></a>
-                    <a href="#" class="me-3" style="color:#7da6e0;"><i class="bi bi-linkedin"></i></a>
-                    <a href="#" class="me-3" style="color:#7da6e0;"><i class="bi bi-stack-overflow"></i></a>
-                    <a href="#" style="color:#7da6e0;"><i class="bi bi-twitter-x"></i></a>
+                <i class="bi bi-skull fs-3 text-success"></i>
+                <p class="mt-2">Hack the planet! — reach me via encrypted channels only.</p>
+                <div class="d-flex gap-3 fs-4">
+                    <a href="#" class="text-success"><i class="bi bi-github"></i></a>
+                    <a href="#" class="text-success"><i class="bi bi-envelope-paper-fill"></i></a>
+                    <a href="#" class="text-success"><i class="bi bi-chat-dots-fill"></i></a>
                 </div>
             </div>
             <div class="col-md-3">
-                <h5>sections</h5>
+                <h5 class="text-success">~/links</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#work" class="text-decoration-none text-secondary-emphasis">work</a></li>
-                    <li><a href="#certs" class="text-decoration-none text-secondary-emphasis">certs</a></li>
-                    <li><a href="#skills" class="text-decoration-none text-secondary-emphasis">stack</a></li>
+                    <li><a href="#" class="text-success-emphasis text-decoration-none">/exploits</a></li>
+                    <li><a href="#" class="text-success-emphasis text-decoration-none">/pgp</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
-                <h5>contact</h5>
+                <h5 class="text-success">⏻ contact</h5>
                 <ul class="list-unstyled">
-                    <li><i class="bi bi-envelope me-2"></i> vikram@dev.space</li>
-                    <li><i class="bi bi-telephone me-2"></i> +1 (415) 867‑5309</li>
+                    <li><i class="bi bi-key me-2"></i>0x7F3A...9C21</li>
+                    <li><i class="bi bi-tor-front"></i> v1kram@onion</li>
                 </ul>
             </div>
         </div>
-        <div class="border-top border-secondary pt-4 mt-3 text-center" style="color: #5f728b;">© 2025 vikram.dev — built with <span style="color: #ff5577;">⚡</span> in the terminal</div>
+        <div class="border-top border-success pt-3 text-center" style="color:#2f9f2f;">© 2025 — root@v1kram · all rights reversed</div>
     </div>
 </section>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- dynamic javascript: counters, typing effect (cycling) -->
 <script>
     (function() {
-        // simple typing effect for "scale" word (rotate)
-        const typingSpan = document.querySelector('.typing');
-        if (typingSpan) {
-            const words = ['scale', 'secure', 'deploy', 'innovate'];
-            let idx = 0;
-            setInterval(() => {
-                idx = (idx + 1) % words.length;
-                typingSpan.textContent = words[idx];
-            }, 1800);
+        // matrix rain
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
         }
+        resizeCanvas();
+        const letters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const fontSize = 14;
+        const columns = Math.floor(width / fontSize);
+        const drops = Array(columns).fill(1);
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 15, 0, 0.04)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = '#0f6';
+            ctx.font = fontSize + 'px "Share Tech Mono", monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 70);
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            // recalc columns
+            const newCols = Math.floor(width / fontSize);
+            drops.length = newCols;
+            for (let i=0; i<newCols; i++) drops[i] = drops[i] || Math.random() * 100;
+        });
 
-        // animated counters (just for show, increments on load)
-        function animateCounter(elementId, target, duration = 1500) {
-            const el = document.getElementById(elementId);
+        // animated counters (hacker style)
+        function animateCounter(id, target) {
+            let el = document.getElementById(id);
             if (!el) return;
-            let start = 0;
-            const increment = target / (duration / 16);
-            const timer = setInterval(() => {
-                start += increment;
-                if (start >= target) {
-                    el.textContent = target.toLocaleString();
+            let current = 0;
+            let step = target / 45; // smooth-ish
+            let timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    el.textContent = target;
                     clearInterval(timer);
                 } else {
-                    el.textContent = Math.floor(start).toLocaleString();
+                    el.textContent = Math.floor(current);
                 }
-            }, 16);
+            }, 40);
         }
+        animateCounter('counter1', 47);
+        animateCounter('counter2', 9);
+        animateCounter('counter3', 23); // htb rank
+        animateCounter('counter4', 186); // bounties
 
-        // set targets
-        animateCounter('counter1', 1247);   // commits
-        animateCounter('counter2', 42);      // contributors
-        animateCounter('counter3', 899);      // coffee
-        animateCounter('counter4', 3280);     // stars
-
-        // dynamic hover micro-interaction: project cards can show extra data (but fine)
-        console.log('portfolio ready');
-
-        // optional: add random pulse to skill chips
-        const chips = document.querySelectorAll('.skill-chip');
-        chips.forEach((chip, i) => {
-            chip.addEventListener('mouseenter', (e) => {
-                e.target.style.transform = 'scale(1.05)';
-            });
-            chip.addEventListener('mouseleave', (e) => {
-                e.target.style.transform = 'scale(1)';
-            });
-        });
+        // prompt blink effect
+        // add cursor after prompts?
     })();
 </script>
 
-<!-- style addition for micro fix -->
+<!-- Additional glitchy tweaks -->
 <style>
-    .text-secondary-emphasis { color: #9bb5d4 !important; }
-    .navbar-nav .nav-link:hover { color: #82b1ff !important; }
-    .project-card .stretched-link { opacity: 0.8; text-decoration: none; font-weight: 600; }
-    .project-card .stretched-link:hover { opacity: 1; text-decoration: underline; }
+    .text-success-emphasis { color: #6fef6f !important; }
+    .navbar-nav .nav-link { color: #7fcf7f; }
+    .navbar-nav .nav-link:hover { color: #cfefcf; text-shadow: 0 0 5px #0f0; }
+    .terminal-panel, .hack-card { border-radius: 0; }
+    .btn-outline-success { border-color: #2f9f2f; color: #9fef9f; }
+    .btn-outline-success:hover { background: #1f5f1f; color: #d0ffd0; border-color:#6fff6f; box-shadow: 0 0 25px #0f0; }
+    .glitch { animation: glitch 1.5s infinite; }
+    @keyframes glitch {
+        0%,100%{ text-shadow: -3px 0 #0f0, 3px 0 #030; }
+        20%{ text-shadow: 2px 0 #0f0, -2px 0 #030; }
+        40%{ text-shadow: -1px 0 #030, 1px 0 #0f0; }
+        70%{ text-shadow: 3px 0 #030, -3px 0 #0f0; }
+    }
+    /* ascii prompt line for each section could be used */
+    .prompt-line::before { content: ">$ "; color: #6fef6f; font-weight: bold; }
+    .container { position: relative; z-index: 5; }
 </style>
 
 </body>
