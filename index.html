@@ -3,241 +3,234 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aoun Ali · Cybersecurity Portfolio</title>
+<title>Aoun Ali | Cybersecurity Portfolio</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
-    --primary:#0f172a;
-    --accent:#2563eb;
-    --bg:#f4f7fb;
-    --card:rgba(255,255,255,0.7);
-    --text:#1e293b;
+--bg:#0f172a;
+--card:#1e293b;
+--accent:#22c55e;
+--text:#e2e8f0;
 }
 
-body.dark{
-    --primary:#ffffff;
-    --accent:#3b82f6;
-    --bg:#0f172a;
-    --card:rgba(30,41,59,0.7);
-    --text:#e2e8f0;
+body.light{
+--bg:#f1f5f9;
+--card:#ffffff;
+--accent:#2563eb;
+--text:#1e293b;
 }
 
 body{
-    font-family:'Inter',sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    transition:0.4s ease;
-    scroll-behavior:smooth;
+background:var(--bg);
+color:var(--text);
+font-family:'Inter',sans-serif;
+transition:0.4s;
+overflow-x:hidden;
 }
 
 .navbar{
-    backdrop-filter:blur(10px);
-    background:rgba(255,255,255,0.6);
-    transition:0.3s;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
 }
 
-body.dark .navbar{
-    background:rgba(15,23,42,0.6);
+body.light .navbar{
+background:rgba(255,255,255,0.8);
 }
 
 .navbar-brand{
-    font-weight:700;
-    color:var(--accent)!important;
+color:var(--accent)!important;
+font-weight:700;
 }
 
-.nav-link{
-    font-weight:500;
+.toggle{
+cursor:pointer;
+color:var(--accent);
+font-size:1.3rem;
 }
 
 .hero{
-    padding:120px 0 80px;
-    background:linear-gradient(135deg,#1e3a8a,#2563eb);
-    color:white;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+position:relative;
 }
 
-.hero h1{
-    font-weight:700;
+canvas{
+position:absolute;
+top:0;
+left:0;
+z-index:-1;
 }
 
-.hero p{
-    opacity:0.9;
+.terminal{
+font-family:'JetBrains Mono',monospace;
+background:var(--card);
+padding:30px;
+border-radius:15px;
+max-width:700px;
+margin:auto;
+box-shadow:0 0 30px rgba(0,255,0,0.2);
 }
 
-.btn-main{
-    background:white;
-    color:#1e3a8a;
-    border:none;
-    border-radius:30px;
-    padding:10px 28px;
-    font-weight:600;
+.typing{
+border-right:2px solid var(--accent);
+white-space:nowrap;
+overflow:hidden;
 }
 
-.btn-main:hover{
-    background:#e0e7ff;
+.section{
+padding:80px 0;
 }
 
-.glass{
-    background:var(--card);
-    backdrop-filter:blur(12px);
-    border-radius:20px;
-    padding:25px;
-    border:1px solid rgba(255,255,255,0.2);
-    transition:0.4s;
+.card-glass{
+background:var(--card);
+padding:25px;
+border-radius:15px;
+transition:0.3s;
 }
 
-.glass:hover{
-    transform:translateY(-8px);
-    box-shadow:0 20px 50px rgba(0,0,0,0.15);
-}
-
-.section-title{
-    font-weight:700;
-    margin-bottom:50px;
-    color:var(--accent);
+.card-glass:hover{
+transform:translateY(-8px);
+box-shadow:0 15px 40px rgba(0,0,0,0.3);
 }
 
 .skill-bar{
-    background:#e2e8f0;
-    border-radius:20px;
-    height:8px;
-    overflow:hidden;
-}
-
-body.dark .skill-bar{
-    background:#334155;
+height:8px;
+background:#334155;
+border-radius:20px;
+overflow:hidden;
 }
 
 .skill-fill{
-    height:8px;
-    width:0%;
-    background:var(--accent);
-    transition:2s ease;
+height:8px;
+width:0;
+background:var(--accent);
+transition:2s;
 }
 
-.counter{
-    font-size:2rem;
-    font-weight:700;
-    color:var(--accent);
+.blog-card{
+background:var(--card);
+padding:20px;
+border-radius:15px;
+transition:0.3s;
 }
 
-.fade-in{
-    opacity:0;
-    transform:translateY(40px);
-    transition:0.8s ease;
-}
-
-.fade-in.visible{
-    opacity:1;
-    transform:translateY(0);
-}
-
-.toggle-btn{
-    cursor:pointer;
-    font-size:1.3rem;
-    color:var(--accent);
+.blog-card:hover{
+transform:scale(1.03);
 }
 
 footer{
-    padding:40px 0;
-    text-align:center;
-    opacity:0.7;
+padding:40px 0;
+text-align:center;
+opacity:0.7;
 }
 </style>
 </head>
 
 <body>
 
-<nav class="navbar fixed-top navbar-expand-lg">
+<nav class="navbar navbar-expand-lg fixed-top">
 <div class="container">
 <a class="navbar-brand" href="#">Aoun Ali</a>
-<div class="ms-auto d-flex align-items-center gap-4">
-<span class="toggle-btn" onclick="toggleMode()">
+<div class="ms-auto toggle" onclick="toggleMode()">
 <i class="bi bi-moon-fill"></i>
-</span>
 </div>
 </div>
 </nav>
 
-<section class="hero text-center">
-<div class="container">
-<h1 class="display-5 mb-3">SOC Analyst · Cloud Security Enthusiast</h1>
-<p class="mb-4">Computer Science graduate specialized in SIEM monitoring, intrusion detection, and AWS cloud deployments.</p>
-<a href="#projects" class="btn btn-main">Explore My Work</a>
-
-<div class="row mt-5">
-<div class="col-md-4">
-<div class="counter" data-target="5">0</div>
-<small>Security Projects</small>
-</div>
-<div class="col-md-4">
-<div class="counter" data-target="3">0</div>
-<small>AWS Deployments</small>
-</div>
-<div class="col-md-4">
-<div class="counter" data-target="2">0</div>
-<small>Google Certifications</small>
-</div>
-</div>
+<!-- HERO -->
+<section class="hero">
+<canvas id="matrix"></canvas>
+<div class="terminal">
+<div id="terminal-text"></div>
 </div>
 </section>
 
-<section id="projects" class="container py-5">
-<h2 class="section-title text-center fade-in">Featured Projects</h2>
+<!-- PROJECTS -->
+<section class="section container">
+<h2 class="text-center mb-5">Featured Projects</h2>
 <div class="row g-4">
 
-<div class="col-md-4 fade-in">
-<div class="glass">
+<div class="col-md-4">
+<div class="card-glass">
 <h5>Snort + Splunk SIEM</h5>
-<p>Deployed Snort IDS on AWS EC2 and integrated logs into Splunk Enterprise for real-time threat detection.</p>
+<p>Deployed IDS on AWS EC2 integrated with Splunk for real-time alert monitoring.</p>
+<a href="https://github.com/aounali720/snort-project" target="_blank">View Project →</a>
 </div>
 </div>
 
-<div class="col-md-4 fade-in">
-<div class="glass">
+<div class="col-md-4">
+<div class="card-glass">
 <h5>Travel Booking Website</h5>
-<p>Responsive UI booking platform built using HTML, CSS, Bootstrap.</p>
+<p>Responsive UI booking platform built with Bootstrap.</p>
 </div>
 </div>
 
-<div class="col-md-4 fade-in">
-<div class="glass">
+<div class="col-md-4">
+<div class="card-glass">
 <h5>Product Management System</h5>
-<p>CRUD-based system using PHP & MySQL for managing customers and orders.</p>
+<p>CRUD system using PHP & MySQL.</p>
 </div>
 </div>
 
 </div>
 </section>
 
-<section class="container py-5">
-<h2 class="section-title text-center fade-in">Technical Skills</h2>
+<!-- SKILLS -->
+<section class="section container">
+<h2 class="text-center mb-5">Technical Skills</h2>
 
-<div class="fade-in mb-4">
 <p>SIEM Monitoring</p>
 <div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div>
-</div>
 
-<div class="fade-in mb-4">
-<p>Network Security</p>
+<p class="mt-4">Network Security</p>
 <div class="skill-bar"><div class="skill-fill" data-width="80%"></div></div>
-</div>
 
-<div class="fade-in mb-4">
-<p>AWS Cloud</p>
+<p class="mt-4">AWS Cloud</p>
 <div class="skill-bar"><div class="skill-fill" data-width="75%"></div></div>
-</div>
 
 </section>
 
-<section class="container py-5 text-center fade-in">
-<div class="glass">
-<h4>Let’s Work Together</h4>
-<p>Open to entry-level SOC Analyst & Cloud Security roles.</p>
-<a href="mailto:your_email@gmail.com" class="btn btn-main">Email Me</a>
+<!-- BLOG -->
+<section class="section container">
+<h2 class="text-center mb-5">Cybersecurity Writeups</h2>
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="blog-card">
+<h6>How SIEM Detects Attacks</h6>
+<p>Understanding log correlation and alerting mechanisms.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="blog-card">
+<h6>Deploying Snort on AWS</h6>
+<p>Step-by-step guide to intrusion detection in the cloud.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="blog-card">
+<h6>Cloud Security Basics</h6>
+<p>IAM, encryption, and shared responsibility explained.</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="section text-center">
+<div class="container">
+<h4>Open to SOC Analyst & Cloud Security Roles</h4>
+<a href="mailto:your_email@gmail.com" class="btn btn-success mt-3">Contact Me</a>
 </div>
 </section>
 
@@ -247,44 +240,58 @@ footer{
 
 <script>
 function toggleMode(){
-document.body.classList.toggle("dark");
+document.body.classList.toggle("light");
 }
 
-const counters=document.querySelectorAll('.counter');
-const speed=200;
-counters.forEach(counter=>{
-const update=()=>{
-const target=+counter.getAttribute('data-target');
-const count=+counter.innerText;
-const inc=target/speed;
-if(count<target){
-counter.innerText=Math.ceil(count+inc);
-setTimeout(update,10);
-}else{
-counter.innerText=target;
+/* Terminal Typing */
+const text="> Initializing Security Portfolio...\n> Loading Projects...\n> Ready.\n> Aoun Ali | SOC Analyst | Cloud Security\n";
+let i=0;
+function type(){
+if(i<text.length){
+document.getElementById("terminal-text").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,40);
 }
-};
-update();
-});
+}
+type();
 
+/* Matrix Background */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
+
+const letters="01";
+const fontSize=14;
+const columns=canvas.width/fontSize;
+const drops=[];
+for(let x=0;x<columns;x++) drops[x]=1;
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#22c55e";
+ctx.font=fontSize+"px monospace";
+for(let i=0;i<drops.length;i++){
+const text=letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0;
+drops[i]++;
+}
+}
+setInterval(draw,33);
+
+/* Skill Animation */
+const skills=document.querySelectorAll(".skill-fill");
 const observer=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 if(entry.isIntersecting){
-entry.target.classList.add('visible');
+entry.target.style.width=entry.target.getAttribute("data-width");
 }
 });
 });
-document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
-
-const skills=document.querySelectorAll('.skill-fill');
-const skillObserver=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.style.width=entry.target.getAttribute('data-width');
-}
-});
-});
-skills.forEach(skill=>skillObserver.observe(skill));
+skills.forEach(skill=>observer.observe(skill));
 </script>
 
 </body>
